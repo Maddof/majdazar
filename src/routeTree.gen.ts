@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users'
 import { Route as RedirectRouteImport } from './routes/redirect'
+import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PostsRouteImport } from './routes/posts'
+import { Route as DesignRouteImport } from './routes/design'
 import { Route as DeferredRouteImport } from './routes/deferred'
 import { Route as CustomScriptDotjsRouteImport } from './routes/customScript[.]js'
 import { Route as PathlessLayoutRouteImport } from './routes/_pathlessLayout'
@@ -37,9 +39,19 @@ const RedirectRoute = RedirectRouteImport.update({
   path: '/redirect',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PostsRoute = PostsRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesignRoute = DesignRouteImport.update({
+  id: '/design',
+  path: '/design',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DeferredRoute = DeferredRouteImport.update({
@@ -118,7 +130,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/customScript.js': typeof CustomScriptDotjsRoute
   '/deferred': typeof DeferredRoute
+  '/design': typeof DesignRoute
   '/posts': typeof PostsRouteWithChildren
+  '/projects': typeof ProjectsRoute
   '/redirect': typeof RedirectRoute
   '/users': typeof UsersRouteWithChildren
   '/api/users': typeof ApiUsersRouteWithChildren
@@ -135,6 +149,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/customScript.js': typeof CustomScriptDotjsRoute
   '/deferred': typeof DeferredRoute
+  '/design': typeof DesignRoute
+  '/projects': typeof ProjectsRoute
   '/redirect': typeof RedirectRoute
   '/api/users': typeof ApiUsersRouteWithChildren
   '/posts/$postId': typeof PostsPostIdRoute
@@ -152,7 +168,9 @@ export interface FileRoutesById {
   '/_pathlessLayout': typeof PathlessLayoutRouteWithChildren
   '/customScript.js': typeof CustomScriptDotjsRoute
   '/deferred': typeof DeferredRoute
+  '/design': typeof DesignRoute
   '/posts': typeof PostsRouteWithChildren
+  '/projects': typeof ProjectsRoute
   '/redirect': typeof RedirectRoute
   '/users': typeof UsersRouteWithChildren
   '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
@@ -172,7 +190,9 @@ export interface FileRouteTypes {
     | '/'
     | '/customScript.js'
     | '/deferred'
+    | '/design'
     | '/posts'
+    | '/projects'
     | '/redirect'
     | '/users'
     | '/api/users'
@@ -189,6 +209,8 @@ export interface FileRouteTypes {
     | '/'
     | '/customScript.js'
     | '/deferred'
+    | '/design'
+    | '/projects'
     | '/redirect'
     | '/api/users'
     | '/posts/$postId'
@@ -205,7 +227,9 @@ export interface FileRouteTypes {
     | '/_pathlessLayout'
     | '/customScript.js'
     | '/deferred'
+    | '/design'
     | '/posts'
+    | '/projects'
     | '/redirect'
     | '/users'
     | '/_pathlessLayout/_nested-layout'
@@ -225,7 +249,9 @@ export interface RootRouteChildren {
   PathlessLayoutRoute: typeof PathlessLayoutRouteWithChildren
   CustomScriptDotjsRoute: typeof CustomScriptDotjsRoute
   DeferredRoute: typeof DeferredRoute
+  DesignRoute: typeof DesignRoute
   PostsRoute: typeof PostsRouteWithChildren
+  ProjectsRoute: typeof ProjectsRoute
   RedirectRoute: typeof RedirectRoute
   UsersRoute: typeof UsersRouteWithChildren
   ApiUsersRoute: typeof ApiUsersRouteWithChildren
@@ -248,11 +274,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RedirectRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/posts': {
       id: '/posts'
       path: '/posts'
       fullPath: '/posts'
       preLoaderRoute: typeof PostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/design': {
+      id: '/design'
+      path: '/design'
+      fullPath: '/design'
+      preLoaderRoute: typeof DesignRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/deferred': {
@@ -427,7 +467,9 @@ const rootRouteChildren: RootRouteChildren = {
   PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
   CustomScriptDotjsRoute: CustomScriptDotjsRoute,
   DeferredRoute: DeferredRoute,
+  DesignRoute: DesignRoute,
   PostsRoute: PostsRouteWithChildren,
+  ProjectsRoute: ProjectsRoute,
   RedirectRoute: RedirectRoute,
   UsersRoute: UsersRouteWithChildren,
   ApiUsersRoute: ApiUsersRouteWithChildren,
