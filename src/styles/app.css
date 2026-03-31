@@ -13,9 +13,6 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
-  * {
-    @apply border-border outline-ring/50;
-  }
   body {
     @apply bg-background text-foreground;
   }
@@ -29,10 +26,6 @@
     color-scheme: light dark;
   }
 
-  * {
-    @apply border-gray-200 dark:border-gray-800;
-  }
-
   html,
   body {
     @apply bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-200;
@@ -41,6 +34,62 @@
   .using-mouse * {
     outline: none !important;
   }
+}
+
+@layer base {
+  body {
+    font-size: clamp(0.875rem, calc(0.875rem + ((1vw - 0.48rem) * 0.5)), 1rem);
+    line-height: 1.45;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, calc(1.8rem + ((1vw - 0.48rem) * 2.25)), 4rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    /* letter-spacing: 0px; */
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-weight: 400;
+    font-size: clamp(1.4rem, calc(1.4rem + ((1vw - 0.48rem) * 0.95)), 2.4rem);
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-weight: 400;
+    font-size: clamp(1rem, calc(1rem + ((1vw - 0.48rem) * 0.6)), 1.5rem);
+  }
+
+  h4 {
+    font-weight: 400;
+    font-size: clamp(0.85rem, calc(0.85rem + ((1vw - 0.48rem) * 0.5)), 1.35rem);
+  }
+
+  h5 {
+    font-weight: 400;
+    font-size: clamp(0.8rem, calc(0.8rem + ((1vw - 0.48rem) * 0.35)), 1.15rem);
+  }
+
+  h6 {
+    font-weight: 400;
+    font-size: clamp(0.75rem, calc(0.75rem + ((1vw - 0.48rem) * 0.25)), 1rem);
+  }
+  section {
+    width: 100%;
+    padding: 6.5rem 0; /* Fallback for older browsers */
+    padding: clamp(3.5rem, 2.8rem + 3.2vw, 6.5rem) 0;
+  }
+}
+
+@utility container {
+  padding-inline: 1rem;
+  margin-inline: auto;
+  max-width: 80rem;
 }
 
 @theme inline {
@@ -95,23 +144,24 @@
   --shadow-2xl: var(--shadow-2xl);
 }
 :root {
-  --background: rgb(238, 246, 255);
-  --foreground: rgb(20, 20, 20);
+  --background: rgb(242, 248, 255);
+  --foreground: rgb(15, 15, 15);
   --card: rgb(255, 255, 255);
-  --card-foreground: rgb(20, 20, 20);
+  --card-foreground: rgb(15, 15, 15);
   --popover: rgb(255, 255, 255);
-  --popover-foreground: rgb(20, 20, 20);
+  --popover-foreground: rgb(15, 15, 15);
   --primary: rgb(35, 45, 55);
   --primary-foreground: rgb(255, 255, 255);
   --secondary: rgb(208, 230, 255);
-  --secondary-foreground: rgb(20, 20, 20);
-  --muted: rgb(110 120 133);
-  --muted-foreground: rgb(107, 114, 128);
+  --secondary-foreground: rgb(94, 101, 113);
+  --muted: rgb(110, 120, 133);
+  --muted-foreground: rgb(87, 94, 107);
   --accent: rgb(224, 242, 254);
   --accent-foreground: rgb(30, 58, 138);
   --destructive: rgb(239, 68, 68);
   --destructive-foreground: rgb(255, 255, 255);
-  --border: rgb(75, 85, 99);
+  /* --border: rgb(75, 85, 99); */
+  --border: oklch(0.85 0 0);
   --input: rgb(229, 231, 235);
   --ring: rgb(59, 130, 246);
   --chart-1: rgb(59, 130, 246);
@@ -150,7 +200,7 @@
 }
 
 .dark {
-  --background: rgb(20, 20, 20);
+  --background: rgb(15, 15, 15);
   --foreground: rgb(245, 245, 245);
   --card: rgb(38, 38, 38);
   --card-foreground: rgb(229, 229, 229);

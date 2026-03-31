@@ -17,9 +17,8 @@ function Home() {
             <div className="space-y-4">
               <p className="text-muted text-sm">Hi, I’m Majd</p>
 
-              <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
-                I build modern web applications with React, TypeScript, and full-stack tools.
-              </h1>
+              <h1 className="">Majd Azar</h1>
+              <h2>Full-stack Dev | Founder @ Smokify</h2>
 
               <p className="text-muted-foreground max-w-2xl text-base leading-7 md:text-lg">
                 This is my personal portfolio where I share selected projects, my stack, and a bit
@@ -28,11 +27,11 @@ function Home() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <Link to="/projects" className={buttonVariants({ variant: 'default', size: 'sm' })}>
+              <Link to="/projects" className={buttonVariants({ variant: 'default' })}>
                 View Projects
               </Link>
 
-              <Link to="/design" className={buttonVariants({ variant: 'outline', size: 'sm' })}>
+              <Link to="/design" className={buttonVariants({ variant: 'outline' }) + ' border-2'}>
                 View UI Playground
               </Link>
             </div>

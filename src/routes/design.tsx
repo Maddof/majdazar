@@ -1,10 +1,11 @@
 import { Separator } from '@base-ui/react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { Badge } from '~/components/ui/badge'
-import { Button } from '~/components/ui/button'
+import { Button, buttonVariants } from '~/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { Input } from '~/components/ui/input'
 import { Textarea } from '~/components/ui/textarea'
+import { cn } from '~/lib/utils'
 
 export const Route = createFileRoute('/design')({
   component: DesignPage,
@@ -14,13 +15,15 @@ function Section({
   title,
   description,
   children,
+  className = '',
 }: {
   title: string
   description?: string
   children: React.ReactNode
+  className?: string
 }) {
   return (
-    <Card className="rounded-2xl">
+    <Card className={`rounded-2xl ${className}`}>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         {description ? <CardDescription>{description}</CardDescription> : null}
@@ -60,14 +63,33 @@ function DesignPage() {
             description="Check your headings, paragraph styles, and muted text."
           >
             <div className="space-y-4">
-              <h1 className="text-4xl font-bold tracking-tight">Heading 1</h1>
-              <h2 className="text-3xl font-semibold tracking-tight">Heading 2</h2>
-              <h3 className="text-2xl font-semibold tracking-tight">Heading 3</h3>
-              <p className="max-w-3xl text-base leading-7">
+              <h1>Heading 1</h1>
+              <h2>Heading 2</h2>
+              <h3>Heading 3</h3>
+              <p className="max-w-3xl">
                 This is a standard paragraph. Use this area to see how your default reading width,
                 font size, and line height feel in the browser.
               </p>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-muted-foreground">
+                This is muted text for descriptions, labels, helper copy, and secondary content.
+              </p>
+            </div>
+          </Section>
+
+          <Section
+            title="Typography"
+            description="Check your headings, paragraph styles, and muted text."
+            className="bg-muted/0"
+          >
+            <div className="space-y-4">
+              <h1>Heading 1</h1>
+              <h2>Heading 2</h2>
+              <h3>Heading 3</h3>
+              <p className="max-w-3xl">
+                This is a standard paragraph. Use this area to see how your default reading width,
+                font size, and line height feel in the browser.
+              </p>
+              <p className="text-muted-foreground">
                 This is muted text for descriptions, labels, helper copy, and secondary content.
               </p>
             </div>
@@ -96,21 +118,21 @@ function DesignPage() {
           >
             <div className="grid gap-4 md:max-w-xl">
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium">
+                <label htmlFor="name" className="">
                   Name
                 </label>
                 <Input id="name" placeholder="Majd Azar" />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
+                <label htmlFor="email" className="">
                   Email
                 </label>
                 <Input id="email" type="email" placeholder="majd@example.com" />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium">
+                <label htmlFor="message" className="">
                   Message
                 </label>
                 <Textarea
