@@ -130,11 +130,11 @@
 }
 :root {
   --background: rgb(242, 248, 255);
-  --foreground: rgb(15, 15, 15);
+  --foreground: rgb(33, 33, 33);
   --card: rgb(255, 255, 255);
-  --card-foreground: rgb(15, 15, 15);
+  --card-foreground: rgb(33, 33, 33);
   --popover: rgb(255, 255, 255);
-  --popover-foreground: rgb(15, 15, 15);
+  --popover-foreground: rgb(33, 33, 33);
   --primary: rgb(35, 45, 55);
   --primary-foreground: rgb(255, 255, 255);
   --secondary: rgb(208, 230, 255);
@@ -185,7 +185,7 @@
 }
 
 .dark {
-  --background: rgb(15, 15, 15);
+  --background: rgb(33, 33, 33);
   --foreground: rgb(245, 245, 245);
   --card: rgb(38, 38, 38);
   --card-foreground: rgb(229, 229, 229);

@@ -1,29 +1,50 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { buttonVariants } from '~/components/ui/button'
 import SignatureM from '~/components/hero/Signature'
+import Typewriter from '~/components/hero/Typewriter'
 
 export const Route = createFileRoute('/')({
   component: Home,
 })
 
 function Home() {
+  const [isSignatureDone, setIsSignatureDone] = useState(false)
+
   return (
     <>
       <section className="relative flex min-h-[55dvh] w-full flex-col gap-12 bg-[url('/images/hero/majd-azar_hero-1.webp')] bg-cover bg-position-[80%_0%] text-white sm:min-h-dvh">
-        <div className="container flex h-full flex-1 items-center">
+        <div className="container flex h-full flex-1 items-end sm:items-center">
           {/* Overlay absolute */}
-          <div className="from-primary/60 to-primary/0 absolute inset-0 z-10 bg-linear-to-r" />
-          <div className="z-20 flex flex-col items-start gap-3">
-            <img
-              src="/images/assets/Vector_stroke.svg"
-              alt="Majd Azar Full Name"
-              className="h-28 w-auto"
-            />
-            <SignatureM />
-            <h1>Majd Azar</h1>
-            <p className="text-[150%]">Full-stack Dev | Founder @ Smokify</p>
+          <div className="from-primary/25 to-primary/0 absolute inset-0 z-10 bg-linear-to-r" />
 
-            <p className="max-w-xl text-[120%] leading-7">Stockholm, Sweden.</p>
+          <div className="from-primary/40 sm:from-primary/25 to-primary/0 absolute inset-0 z-10 bg-linear-to-tr" />
+          <div className="z-20 flex flex-col items-start gap-2">
+            <SignatureM onComplete={() => setIsSignatureDone(true)} />
+            <Typewriter
+              start={isSignatureDone}
+              text="Majd Azar"
+              className="text-[200%] font-bold sm:text-[250%]"
+            />
+
+            <motion.p
+              className="text-[125%] sm:text-[150%]"
+              initial={{ opacity: 0, y: 8 }}
+              animate={isSignatureDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+              transition={{ duration: 0.35, delay: 1, ease: 'easeOut' }}
+            >
+              Full-stack Dev | Founder @ Smokify
+            </motion.p>
+
+            <motion.p
+              className="-mt-2 max-w-xl text-[100%] leading-7 sm:text-[120%]"
+              initial={{ opacity: 0, y: 4 }}
+              animate={isSignatureDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
+              transition={{ duration: 0.4, delay: 1.4, ease: 'easeOut' }}
+            >
+              Stockholm, Sweden.
+            </motion.p>
 
             {/* <div className="flex flex-wrap gap-3">
               <Link to="/projects" className={buttonVariants({ variant: 'default' })}>
@@ -37,11 +58,11 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="flex min-h-screen w-full flex-col gap-12 px-6 py-16 md:px-8 md:py-24">
-        <div className="max-w-3xl space-y-6">
+      <section className="min-h-screen">
+        <div className="container">
           <h2>More about me</h2>
 
-          <p className="text-muted-foreground max-w-2xl text-base leading-7 md:text-lg">
+          <p className="max-w-2xl text-base leading-7 md:text-lg">
             I’m a full-stack developer with a passion for building products that solve real
             problems. I have experience working with a variety of technologies, including React,
             Node.js, and TypeScript. I’m currently focused on building my portfolio and looking for
