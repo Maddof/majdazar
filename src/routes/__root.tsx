@@ -1,13 +1,17 @@
 /// <reference types="vite/client" />
-import { HeadContent, Link, Scripts, createRootRoute } from '@tanstack/react-router'
+import {
+  HeadContent,
+  Link,
+  Scripts,
+  createRootRoute,
+} from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import * as React from 'react'
 import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary'
 import { NotFound } from '~/components/NotFound'
+import { Header } from '~/components/header/Header'
 import appCss from '~/styles/app.css?url'
 import { seo } from '~/utils/seo'
-
-import { HeaderLinks } from '~/components/header/HeaderLinks'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -20,7 +24,8 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       ...seo({
-        title: 'TanStack Start | Type-Safe, Client-First, Full-Stack React Framework',
+        title:
+          'TanStack Start | Type-Safe, Client-First, Full-Stack React Framework',
         description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
       }),
     ],
@@ -65,9 +70,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        {/* Only for testing purposes, remove in production */}
-        {/* <HeaderLinks /> */}
-        {/* <hr /> */}
+        <Header />
         <main>{children}</main>
 
         <TanStackRouterDevtools position="bottom-right" />

@@ -39,7 +39,11 @@ export default function Typewriter({
   const isTyping = start && currentIndex < text.length
 
   return (
-    <Component className={`relative inline-block ${className || ''}`} aria-label={text} {...props}>
+    <Component
+      className={`relative inline-block ${className || ''}`}
+      aria-label={text}
+      {...props}
+    >
       {/* Ghost: takes space but not visible */}
 
       <span className="invisible whitespace-pre">
@@ -53,9 +57,11 @@ export default function Typewriter({
         {cursor && start && (
           <motion.span
             className="inline-block"
-            animate={isTyping ? { opacity: 1 } : { opacity: [1, 0, 1] }}
+            animate={isTyping ? { opacity: 1 } : { opacity: [0, 1, 0] }}
             transition={
-              isTyping ? { duration: 0 } : { duration: 1, repeat: Infinity, ease: 'linear' }
+              isTyping
+                ? { duration: 0 }
+                : { duration: 1, repeat: 3, ease: 'linear' }
             }
           >
             |
