@@ -8,30 +8,70 @@ import './styles.css'
 
 // import required modules
 import { EffectCards } from 'swiper/modules'
+import { Button } from '../ui/button'
+
+type PortfolioCardProps = {
+  id: string
+  title: string
+  cardClassName?: string
+}
+
+function PortfolioCard({ id, title, cardClassName }: PortfolioCardProps) {
+  return (
+    <div
+      id={id}
+      className={`relative flex h-full w-full items-start justify-start p-4 ${cardClassName ?? ''}`}
+    >
+      <div className="absolute inset-0 z-10 bg-linear-to-br from-black/30 to-black/0" />
+      {/* <div className="absolute inset-0 z-10 bg-linear-to-t from-black/10 to-black/0" /> */}
+      <h2 className="z-30 -ml-2 text-left text-[155%] font-black tracking-tight uppercase [text-orientation:upright] [writing-mode:vertical-lr]">
+        {title}
+      </h2>
+      <div className="absolute top-1/2 left-1/2 z-20 flex w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center border-y border-white/75 bg-black/25">
+        <Button
+          variant="ghost"
+          className="text-base font-bold tracking-widest hover:text-white"
+        >
+          Se fallstudie
+        </Button>
+      </div>
+    </div>
+  )
+}
 
 export function ProjectCards() {
+  const slides = [
+    {
+      id: 'portfolio-card-1',
+      title: 'Personal',
+      cardClassName: '',
+    },
+    { id: 'portfolio-card-2', title: 'Vali', cardClassName: '' },
+    { id: 'portfolio-card-3', title: 'Smokify', cardClassName: '' },
+  ]
+
   return (
     <Swiper
       effect={'cards'}
       modules={[EffectCards]}
       grabCursor={true}
-      initialSlide={1}
+      initialSlide={2}
       cardsEffect={{
-        perSlideRotate: 8,
-        perSlideOffset: 4,
+        perSlideRotate: 10,
+        perSlideOffset: 8,
         slideShadows: true,
       }}
       className="mySwiper"
     >
-      <SwiperSlide>
-        <div id="portfolio-card-1">Slide 1</div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div id="portfolio-card-2">Slide 2</div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div id="portfolio-card-3">Slide 3</div>
-      </SwiperSlide>
+      {slides.map((slide) => (
+        <SwiperSlide key={slide.id}>
+          <PortfolioCard
+            id={slide.id}
+            title={slide.title}
+            cardClassName={slide.cardClassName}
+          />
+        </SwiperSlide>
+      ))}
     </Swiper>
     // <div
     //   id="portfolio-cards"

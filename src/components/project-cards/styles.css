@@ -5,8 +5,7 @@
   border-radius: 4px;
   font-size: 22px;
   font-weight: bold;
-  color: var(--color-foreground);
-  padding: 20px;
+  color: #fff;
 }
 
 .mySwiper {
@@ -23,6 +22,28 @@
   width: 100%;
   height: 100%;
   border: 1px solid var(--color-primary);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#portfolio-card-1 {
+  background-image: url('/images/homepage/portfolio-site_screenshot_3x4.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#portfolio-card-2 {
+  background-image: url('/images/homepage/vali_screenshot_3x4.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#portfolio-card-3 {
+  background-image: url('/images/homepage/smokify_screenshot_3x4.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .swiper-slide:nth-child(1n) {

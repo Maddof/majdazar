@@ -17,7 +17,7 @@ export function Header() {
     )
 
     const updateHeaderState = () => {
-      if (window.scrollY > 140) {
+      if (window.scrollY > 100) {
         setHasStartedScroll(true)
       }
 

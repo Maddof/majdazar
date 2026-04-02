@@ -15,7 +15,7 @@ function Home() {
 
   useEffect(() => {
     const onScroll = () => {
-      if (window.scrollY > 140) {
+      if (window.scrollY > 100) {
         setHasStartedScroll(true)
       }
     }
@@ -70,16 +70,6 @@ function Home() {
             >
               Stockholm, Sweden.
             </motion.p>
-
-            {/* <div className="flex flex-wrap gap-3">
-              <Link to="/projects" className={buttonVariants({ variant: 'default' })}>
-                View Projects
-              </Link>
-
-              <Link to="/design" className={buttonVariants({ variant: 'outline' }) + ' border-2'}>
-                View UI Playground
-              </Link>
-            </div> */}
           </div>
         </div>
       </section>
