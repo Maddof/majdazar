@@ -76,7 +76,7 @@ function Home() {
       </section>
       <section data-below-hero-trigger className="min-h-screen overflow-hidden">
         <div className="container">
-          <h2 className="relative isolate mb-2 inline-block">
+          <h2 className="relative mb-2 text-6xl font-bold tracking-tight md:text-7xl">
             My projects
             <div
               aria-hidden="true"
