@@ -13,18 +13,19 @@ import { Button } from '../ui/button'
 type PortfolioCardProps = {
   id: string
   title: string
-  cardClassName?: string
+  imageUrl: string
 }
 
-function PortfolioCard({ id, title, cardClassName }: PortfolioCardProps) {
+function PortfolioCard({ id, title, imageUrl }: PortfolioCardProps) {
   return (
     <div
       id={id}
-      className={`relative flex h-full w-full items-start justify-start p-4 ${cardClassName ?? ''}`}
+      className="relative flex h-full w-full items-start justify-start bg-cover bg-center bg-no-repeat p-4"
+      style={{ backgroundImage: `url('${imageUrl}')` }}
     >
       <div className="absolute inset-0 z-10 bg-linear-to-br from-black/30 to-black/0" />
       {/* <div className="absolute inset-0 z-10 bg-linear-to-t from-black/10 to-black/0" /> */}
-      <h2 className="z-30 -ml-2 text-left text-[155%] font-black tracking-tight uppercase [text-orientation:upright] [writing-mode:vertical-lr]">
+      <h2 className="z-30 -ml-2 text-center text-[125%] font-black -tracking-widest uppercase opacity-90 [text-orientation:upright] [writing-mode:vertical-lr] sm:text-[155%]">
         {title}
       </h2>
       <div className="absolute top-1/2 left-1/2 z-20 flex w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center border-y border-white/75 bg-black/25">
@@ -44,10 +45,18 @@ export function ProjectCards() {
     {
       id: 'portfolio-card-1',
       title: 'Personal',
-      cardClassName: '',
+      imageUrl: '/images/homepage/portfolio-site_screenshot_3x4.webp',
     },
-    { id: 'portfolio-card-2', title: 'Vali', cardClassName: '' },
-    { id: 'portfolio-card-3', title: 'Smokify', cardClassName: '' },
+    {
+      id: 'portfolio-card-2',
+      title: 'Smokify',
+      imageUrl: '/images/homepage/smokify_screenshot_3x4.webp',
+    },
+    {
+      id: 'portfolio-card-3',
+      title: 'Vali',
+      imageUrl: '/images/homepage/vali_screenshot_3x4.webp',
+    },
   ]
 
   return (
@@ -55,7 +64,7 @@ export function ProjectCards() {
       effect={'cards'}
       modules={[EffectCards]}
       grabCursor={true}
-      initialSlide={2}
+      initialSlide={1}
       cardsEffect={{
         perSlideRotate: 10,
         perSlideOffset: 8,
@@ -68,7 +77,7 @@ export function ProjectCards() {
           <PortfolioCard
             id={slide.id}
             title={slide.title}
-            cardClassName={slide.cardClassName}
+            imageUrl={slide.imageUrl}
           />
         </SwiperSlide>
       ))}

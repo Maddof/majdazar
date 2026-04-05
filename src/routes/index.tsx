@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import SignatureM from '~/components/hero/Signature'
 import Typewriter from '~/components/hero/Typewriter'
 import { ProjectCards } from '~/components/project-cards/ProjectCards'
+import TechSection from '~/components/toolsofthetrade/ToolsOfTheTrade'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -79,7 +80,7 @@ function Home() {
             My projects
             <div
               aria-hidden="true"
-              className="bg-secondary absolute top-1/2 left-[0.5ch] -z-10 h-32 w-32 -translate-x-1/2 -translate-y-1/2"
+              className="bg-secondary absolute top-1/2 left-[0.5ch] -z-10 h-48 w-48 -translate-x-1/2 -translate-y-1/2"
             />
           </h2>
 
@@ -91,6 +92,7 @@ function Home() {
           <ProjectCards />
         </div>
       </section>
+      <TechSection />
       <section className="min-h-screen">
         <div className="container">
           <h2>More about me</h2>

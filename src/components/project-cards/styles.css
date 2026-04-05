@@ -22,40 +22,19 @@
   width: 100%;
   height: 100%;
   border: 1px solid var(--color-primary);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#portfolio-card-1 {
-  background-image: url('/images/homepage/portfolio-site_screenshot_3x4.webp');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-#portfolio-card-2 {
-  background-image: url('/images/homepage/vali_screenshot_3x4.webp');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-#portfolio-card-3 {
-  background-image: url('/images/homepage/smokify_screenshot_3x4.webp');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
 .swiper-slide:nth-child(1n) {
-  background-color: var(--color-background);
+  /* background-color: var(--color-background); */
 }
 
 .swiper-slide:nth-child(2n) {
-  background-color: var(--color-background);
+  /* background-color: var(--color-background); */
 }
 
 .swiper-slide:nth-child(3n) {
-  background-color: var(--color-background);
+  /* background-color: var(--color-background); */
 }
 
 .swiper-slide:nth-child(4n) {
