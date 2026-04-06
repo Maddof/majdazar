@@ -33,7 +33,7 @@ function PortfolioCard({ id, title, imageUrl }: PortfolioCardProps) {
           variant="ghost"
           className="text-base font-bold tracking-widest hover:text-white"
         >
-          Se fallstudie
+          View case study
         </Button>
       </div>
     </div>

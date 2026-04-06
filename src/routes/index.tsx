@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import SignatureM from '~/components/hero/Signature'
 import Typewriter from '~/components/hero/Typewriter'
 import { ProjectCards } from '~/components/project-cards/ProjectCards'
+import SectionIntro from '~/components/SectionIntro'
 import TechSection from '~/components/toolsofthetrade/ToolsOfTheTrade'
 
 export const Route = createFileRoute('/')({
@@ -36,9 +37,9 @@ function Home() {
       >
         <div className="container flex h-full flex-1 items-end sm:items-center">
           {/* Overlay absolute */}
-          <div className="from-primary/25 to-primary/0 absolute inset-0 z-10 bg-linear-to-r" />
+          <div className="from-primary/15 to-primary/0 absolute inset-0 z-10 bg-linear-to-r" />
 
-          <div className="from-primary/40 sm:from-primary/25 to-primary/0 absolute inset-0 z-10 bg-linear-to-tr" />
+          <div className="from-primary/40 sm:from-primary/10 to-primary/0 absolute inset-0 z-10 bg-linear-to-tr" />
           <div className="z-20 flex flex-col items-start gap-2">
             <SignatureM
               onComplete={() => setIsSignatureDone(true)}
@@ -47,7 +48,7 @@ function Home() {
             <Typewriter
               start={isSignatureDone}
               text="Majd Azar"
-              className="text-[200%] font-bold sm:text-[250%]"
+              // className="text-[200%] font-bold sm:text-[250%]"
             />
 
             <motion.p
@@ -76,19 +77,11 @@ function Home() {
       </section>
       <section data-below-hero-trigger className="min-h-screen overflow-hidden">
         <div className="container">
-          <h2 className="relative mb-2 text-6xl font-bold tracking-tight md:text-7xl">
-            My projects
-            <div
-              aria-hidden="true"
-              className="bg-secondary absolute top-1/2 left-[0.5ch] -z-10 h-48 w-48 -translate-x-1/2 -translate-y-1/2"
-            />
-          </h2>
+          <SectionIntro
+            title="My projects"
+            description="I have worked on a variety of projects, including web applications, mobile applications, and open-source libraries. Some of my notable projects include:"
+          />
 
-          <p className="isolate max-w-2xl">
-            I have worked on a variety of projects, including web applications,
-            mobile applications, and open-source libraries. Some of my notable
-            projects include:
-          </p>
           <ProjectCards />
         </div>
       </section>

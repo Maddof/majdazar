@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Accordion from '../accordion/Accordion'
+import SectionIntro from '../SectionIntro'
 
 type Tool = {
   name: string
@@ -9,7 +10,8 @@ type Tool = {
 }
 
 type ToolCategory = {
-  title: 'Frontend' | 'Backend' | 'DevOps/Tools'
+  title: string
+  honorableMention?: boolean
   tools: Tool[]
 }
 
@@ -53,6 +55,12 @@ const toolCategories: ToolCategory[] = [
         description:
           'Utility-first CSS workflow for quickly crafting polished responsive layouts.',
       },
+      {
+        name: 'ShadCN',
+        image: 'images/assets/icons/shadcn-ui-seeklogo.png',
+        description:
+          'Component library built on Radix UI, Base UI and Tailwind for beautiful, accessible UIs.',
+      },
     ],
   },
   {
@@ -80,7 +88,57 @@ const toolCategories: ToolCategory[] = [
   },
   {
     title: 'DevOps/Tools',
-    tools: [],
+    tools: [
+      {
+        name: 'Hetzner',
+        image: 'images/assets/icons/hetzner-h.png',
+        description:
+          'Cloud provider offering powerful, cost-effective servers for hosting and deployment.',
+      },
+      {
+        name: 'Vite',
+        image: 'images/assets/icons/vite_logo.png',
+        description:
+          'Next-gen frontend tooling for lightning-fast development and optimized builds.',
+      },
+      {
+        name: 'GitHub',
+        image: 'images/assets/icons/GitHub_Invertocat_Black.png',
+        description:
+          'Code hosting platform for version control, collaboration, and CI/CD workflows.',
+      },
+      {
+        name: 'Docker',
+        image: 'images/assets/icons/docker-mark-ocean-blue.png',
+        description:
+          'Containerization platform that simplifies deployment and ensures consistency across environments.',
+      },
+      {
+        name: 'Figma',
+        image: 'images/assets/icons/figma-Icon.png',
+        description:
+          'Collaborative interface design tool for creating, prototyping, and sharing designs.',
+      },
+    ],
+  },
+  {
+    title: 'Honorable Mentions',
+    honorableMention: true,
+    tools: [
+      { name: 'Framer Motion', image: '', description: '' },
+      { name: 'Swiper', image: '', description: '' },
+      { name: 'Python', image: '', description: '' },
+      { name: 'Objective-C', image: '', description: '' },
+      { name: 'JWT', image: '', description: '' },
+      { name: 'SEO', image: '', description: '' },
+      { name: 'WordPress', image: '', description: '' },
+      { name: 'Strapi', image: '', description: '' },
+      {
+        name: 'Stripe',
+        image: '',
+        description: '',
+      },
+    ],
   },
 ]
 
@@ -98,7 +156,7 @@ function ToolCard({
       layout
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{
         layout: { duration: 0.6, ease: 'easeInOut' },
         opacity: { duration: 0.45 },
@@ -108,13 +166,13 @@ function ToolCard({
       aria-pressed={isActive}
       aria-label={`${tool.name}: ${tool.description}`}
       onClick={onToggle}
-      className={`group/toolcard relative min-h-52.5 w-full overflow-hidden border text-left transition-colors duration-500 ${
+      className={`group/toolcard relative min-h-52.5 w-full overflow-hidden border text-left text-sm transition-colors duration-500 sm:text-base ${
         isActive
           ? 'bg-primary text-primary-foreground'
           : 'text-foreground hover:bg-primary hover:text-primary-foreground bg-white'
       }`}
     >
-      <p className="absolute top-3 left-3 z-20 rotate-180 tracking-[0.3em] [writing-mode:vertical-rl]">
+      <p className="absolute top-3 left-3 z-20 rotate-180 tracking-[0.3em] uppercase [writing-mode:vertical-rl]">
         {tool.name}
       </p>
 
@@ -122,7 +180,7 @@ function ToolCard({
         <img
           src={tool.image}
           alt={tool.name}
-          className={`pointer-events-none absolute top-1/2 left-1/2 h-auto max-w-4/5 -translate-x-1/2 -translate-y-1/2 object-contain p-12 transition-opacity duration-500 ${
+          className={`pointer-events-none absolute top-1/2 left-1/2 h-auto max-w-3/5 -translate-x-1/2 -translate-y-1/2 object-contain transition-opacity duration-500 ${
             isActive
               ? 'opacity-0'
               : 'opacity-100 group-hover/toolcard:opacity-0'
@@ -131,7 +189,7 @@ function ToolCard({
       )}
 
       <p
-        className={`text-primary-foreground pointer-events-none absolute inset-y-0 right-0 left-5 flex items-center justify-center px-6 text-center leading-relaxed transition-opacity duration-500 ${
+        className={`text-primary-foreground pointer-events-none absolute inset-y-0 right-0 left-5 flex items-center justify-center px-4 text-center leading-relaxed transition-opacity duration-500 sm:px-6 ${
           isActive
             ? 'opacity-100'
             : 'opacity-0 group-hover/toolcard:opacity-100'
@@ -147,65 +205,76 @@ export default function TechSection() {
   const [activeTool, setActiveTool] = useState<string | null>(null)
 
   return (
-    <section>
-      <div className="container">
-        <div className="mb-24">
-          <h2 className="relative mb-2 text-6xl font-bold tracking-tight md:text-7xl">
-            Tools of the trade
-            <div
-              aria-hidden="true"
-              className="bg-secondary absolute top-1/2 left-[0.5ch] -z-10 h-48 w-48 -translate-x-1/2 -translate-y-1/2"
-            />
-          </h2>
-          <p className="isolate max-w-2xl">
-            I’m a firm believer in using the right tool for the job. My stack is
-            built around a modern developer experience and a "ship fast"
-            mentality. From front-end finesse to back-end stability, I leverage
-            these technologies to build seamless, full-stack experiences without
-            the bloat.
-          </p>
-        </div>
+    <>
+      <section>
+        <div className="container">
+          <SectionIntro
+            className="mb-24"
+            title="Tools of the trade"
+            description="I’m a firm believer in using the right tool for the job. My stack is built around a modern developer experience and a 'ship fast' mentality. From front-end finesse to back-end stability, I leverage these technologies to build seamless, full-stack experiences without the bloat."
+          />
 
-        {toolCategories.map((category, index) => (
-          <div key={category.title}>
-            <Accordion title={category.title} index={index}>
-              {category.tools.length > 0 ? (
-                <motion.div
-                  layout
-                  className="mb-8 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 xl:grid-cols-4"
-                >
-                  {category.tools.map((tool, i) => (
+          {toolCategories
+            .filter((c) => !c.honorableMention)
+            .map((category, index) => (
+              <div key={category.title}>
+                <Accordion title={category.title} index={index}>
+                  {category.tools.length > 0 ? (
                     <motion.div
-                      key={tool.name}
                       layout
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: false, amount: 0.15 }}
-                      transition={{
-                        layout: { duration: 0.6, ease: 'easeInOut' },
-                        opacity: { duration: 0.4, delay: i * 0.06 },
-                        y: { duration: 0.4, delay: i * 0.06 },
-                      }}
+                      className="mb-8 grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-3 xl:grid-cols-4"
                     >
-                      <ToolCard
-                        tool={tool}
-                        isActive={activeTool === tool.name}
-                        onToggle={() => {
-                          setActiveTool((currentTool) =>
-                            currentTool === tool.name ? null : tool.name,
-                          )
-                        }}
-                      />
+                      {category.tools.map((tool, i) => (
+                        <motion.div
+                          key={tool.name}
+                          layout
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true, amount: 0.15 }}
+                          transition={{
+                            layout: { duration: 0.6, ease: 'easeInOut' },
+                            opacity: { duration: 0.4, delay: i * 0.06 },
+                            y: { duration: 0.4, delay: i * 0.06 },
+                          }}
+                        >
+                          <ToolCard
+                            tool={tool}
+                            isActive={activeTool === tool.name}
+                            onToggle={() => {
+                              setActiveTool((currentTool) =>
+                                currentTool === tool.name ? null : tool.name,
+                              )
+                            }}
+                          />
+                        </motion.div>
+                      ))}
                     </motion.div>
-                  ))}
-                </motion.div>
-              ) : (
-                <p className="text-muted-foreground">Coming soon.</p>
-              )}
-            </Accordion>
-          </div>
-        ))}
-      </div>
-    </section>
+                  ) : (
+                    <p className="text-muted-foreground">Coming soon.</p>
+                  )}
+                </Accordion>
+              </div>
+            ))}
+        </div>
+      </section>
+      <section>
+        <div className="container">
+          <SectionIntro
+            title="Honorable Mentions"
+            description="Services and tech I’ve worked with across professional roles, studies and personal projects. Not an exhaustive list, but a snapshot of the wider ecosystem I’m familiar with."
+          />
+          <ul className="my-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
+            {toolCategories
+              .filter((c) => c.honorableMention)
+              .flatMap((c) => c.tools)
+              .map((tool) => (
+                <li key={tool.name} className="rounded border px-3 py-2">
+                  {tool.name}
+                </li>
+              ))}
+          </ul>
+        </div>
+      </section>
+    </>
   )
 }

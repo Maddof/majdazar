@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 export default function Typewriter({
   text,
-  className,
+  className = '',
   speed = 100,
   cursor = true,
   start = true,
@@ -40,7 +40,7 @@ export default function Typewriter({
 
   return (
     <Component
-      className={`relative inline-block ${className || ''}`}
+      className={`relative inline-block ${className}`}
       aria-label={text}
       {...props}
     >

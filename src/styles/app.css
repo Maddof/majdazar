@@ -36,7 +36,7 @@
   }
 
   h1 {
-    font-size: clamp(1.8rem, calc(1.8rem + ((1vw - 0.48rem) * 2.25)), 4rem);
+    font-size: clamp(2rem, calc(2rem + ((1vw - 0.48rem) * 2.25)), 5rem);
     font-weight: 900;
     text-transform: uppercase;
     /* letter-spacing: 0px; */
@@ -44,8 +44,8 @@
   }
 
   h2 {
-    font-weight: 400;
-    font-size: clamp(1.4rem, calc(1.4rem + ((1vw - 0.48rem) * 0.95)), 2.4rem);
+    font-weight: 700;
+    font-size: clamp(2.25rem, calc(2.25rem + ((1vw - 0.48rem) * 1.8)), 5rem);
     line-height: 1.15;
   }
 
