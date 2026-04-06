@@ -4,8 +4,8 @@ const containerVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.16,
-      delayChildren: 0.08,
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
     },
   },
 }
@@ -31,7 +31,7 @@ export function Footer() {
       >
         <motion.p
           variants={itemVariants}
-          className="text-3xl font-bold tracking-tight uppercase"
+          className="text-2xl font-bold tracking-tight uppercase sm:text-3xl"
         >
           Majd Azar
         </motion.p>
@@ -42,7 +42,8 @@ export function Footer() {
           className="mx-1 h-18 w-auto"
         />
         <motion.p variants={itemVariants}>
-          © {new Date().getFullYear()} | Built with React, TypeScript, and Vite
+          © {new Date().getFullYear()} | Built with React, TypeScript, Tanstack
+          and Vite
         </motion.p>
       </motion.div>
     </footer>

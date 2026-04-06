@@ -64,7 +64,7 @@ function Home() {
             </motion.p>
 
             <motion.p
-              className="-mt-2 max-w-xl text-[100%] leading-7 sm:text-[120%]"
+              className="max-w-xl text-[100%] leading-7 sm:text-[120%]"
               initial={{ opacity: 0, y: 4 }}
               animate={
                 isSignatureDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }
@@ -96,7 +96,9 @@ function Home() {
                 subtitle="Beyond the stack"
                 description="I’m a developer who speaks the language of business. As a two-time founder, I understand the grit required to take an idea from 0 to 1. I work across the entire stack and across the boardroom to build tech that actually works for people."
               />
-              <Button className="mt-6">Read more</Button>
+              <Button className="mt-6 text-[90%] leading-none font-light">
+                Read more
+              </Button>
             </div>
             <div className="w-full sm:w-2/4">
               <img
