@@ -1,14 +1,10 @@
 /// <reference types="vite/client" />
-import {
-  HeadContent,
-  Link,
-  Scripts,
-  createRootRoute,
-} from '@tanstack/react-router'
+import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import * as React from 'react'
 import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary'
 import { NotFound } from '~/components/NotFound'
+import { Footer } from '~/components/footer/Footer'
 import { Header } from '~/components/header/Header'
 import appCss from '~/styles/app.css?url'
 import { seo } from '~/utils/seo'
@@ -72,6 +68,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <Header />
         <main>{children}</main>
+        <Footer />
 
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />

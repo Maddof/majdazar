@@ -129,6 +129,8 @@ const toolCategories: ToolCategory[] = [
       { name: 'Swiper', image: '', description: '' },
       { name: 'Python', image: '', description: '' },
       { name: 'Objective-C', image: '', description: '' },
+      { name: 'C++', image: '', description: '' },
+      { name: 'RestAPI', image: '', description: '' },
       { name: 'JWT', image: '', description: '' },
       { name: 'SEO', image: '', description: '' },
       { name: 'WordPress', image: '', description: '' },
@@ -180,6 +182,7 @@ function ToolCard({
         <img
           src={tool.image}
           alt={tool.name}
+          loading="lazy"
           className={`pointer-events-none absolute top-1/2 left-1/2 h-auto max-w-3/5 -translate-x-1/2 -translate-y-1/2 object-contain transition-opacity duration-500 ${
             isActive
               ? 'opacity-0'

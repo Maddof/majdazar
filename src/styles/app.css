@@ -50,8 +50,12 @@
   }
 
   h3 {
-    font-weight: 400;
-    font-size: clamp(1rem, calc(1rem + ((1vw - 0.48rem) * 0.6)), 1.5rem);
+    font-weight: 500;
+    font-size: clamp(
+      1.125rem,
+      calc(1.125rem + ((1vw - 0.48rem) * 0.8)),
+      1.875rem
+    );
   }
 
   h4 {
@@ -70,8 +74,8 @@
   }
   section {
     width: 100%;
-    padding: 6.5rem 0; /* Fallback for older browsers */
-    padding: clamp(3.5rem, 2.8rem + 3.2vw, 6.5rem) 0;
+    padding: 9rem 0; /* Fallback for older browsers */
+    padding: clamp(5rem, 4rem + 4.5vw, 9rem) 0;
   }
 }
 

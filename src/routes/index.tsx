@@ -6,6 +6,7 @@ import Typewriter from '~/components/hero/Typewriter'
 import { ProjectCards } from '~/components/project-cards/ProjectCards'
 import SectionIntro from '~/components/SectionIntro'
 import TechSection from '~/components/toolsofthetrade/ToolsOfTheTrade'
+import { Button } from '~/components/ui/button'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -75,7 +76,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section data-below-hero-trigger className="min-h-screen overflow-hidden">
+      <section data-below-hero-trigger className="overflow-hidden">
         <div className="container">
           <SectionIntro
             title="My projects"
@@ -86,17 +87,26 @@ function Home() {
         </div>
       </section>
       <TechSection />
-      <section className="min-h-screen">
+      <section id="more-about-me " className="overflow-hidden">
         <div className="container">
-          <h2>More about me</h2>
-
-          <p className="isolate max-w-2xl">
-            I’m a full-stack developer with a passion for building products that
-            solve real problems. I have experience working with a variety of
-            technologies, including React, Node.js, and TypeScript. I’m
-            currently focused on building my portfolio and looking for new
-            opportunities to grow and learn.
-          </p>
+          <div className="flex flex-col gap-8 sm:flex-row">
+            <div className="sm:w-2/4">
+              <SectionIntro
+                title="More about me"
+                subtitle="Beyond the stack"
+                description="I’m a developer who speaks the language of business. As a two-time founder, I understand the grit required to take an idea from 0 to 1. I work across the entire stack and across the boardroom to build tech that actually works for people."
+              />
+              <Button className="mt-6">Read more</Button>
+            </div>
+            <div className="w-full sm:w-2/4">
+              <img
+                src="/images/homepage/majd_sketch.jpg"
+                alt="More about me"
+                className="w-full rounded-lg"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
       </section>
     </>
