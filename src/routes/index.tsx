@@ -34,7 +34,7 @@ function Home() {
     <>
       <section
         data-hero-section
-        className="relative flex min-h-[55dvh] w-full flex-col gap-12 bg-[url('/images/hero/majd-azar_hero-1.webp')] bg-cover bg-position-[80%_0%] text-white sm:min-h-dvh"
+        className="relative flex min-h-[55svh] w-full flex-col gap-12 bg-[url('/images/hero/majd-azar_hero-1.webp')] bg-cover bg-position-[80%_0%] text-white sm:min-h-svh"
       >
         <div className="container flex h-full flex-1 items-end sm:items-center">
           {/* Overlay absolute */}

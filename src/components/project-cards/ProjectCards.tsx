@@ -23,7 +23,7 @@ import { EffectCards } from 'swiper/modules'
 import { Link } from '@tanstack/react-router'
 
 type CaseStudy = {
-  techniques: string[]
+  techniques: { name: string; description: string }[]
   challenges: string
   liveSiteLink: string
   finalThoughts: string
@@ -90,7 +90,8 @@ function PortfolioCard({ id, title, imageUrl, caseStudy }: PortfolioCardProps) {
                     <ul className="list-disc pl-6">
                       {caseStudy.techniques.map((technique, i) => (
                         <li key={i} className="mb-1">
-                          {technique}
+                          <strong>{technique.name}:</strong>{' '}
+                          {technique.description}
                         </li>
                       ))}
                     </ul>
@@ -139,11 +140,31 @@ export function ProjectCards() {
       imageUrl: '/images/homepage/portfolio-site_screenshot_3x4.webp',
       caseStudy: {
         techniques: [
-          'TanStack Start & Router: File-based routing with type-safe navigation, loaders, and full-stack server functions — no separate backend needed.',
-          'React 19 & Tailwind CSS v4: Component-driven UI with utility-first styling, CSS custom properties, and responsive design throughout.',
-          'Swiper.js + Base UI + shadcn/ui: Accessible, composable primitives for interactive elements like dialogs, accordions, and this card carousel.',
-          'Framer Motion: Subtle animations and transitions to add life to page elements without sacrificing performance.',
-          'Vite: Fast dev server and optimised production builds with tree-shaking and code splitting.',
+          {
+            name: 'TanStack Start & Router',
+            description:
+              'File-based routing with type-safe navigation, loaders, and full-stack server functions — no separate backend needed.',
+          },
+          {
+            name: 'React 19 & Tailwind CSS v4',
+            description:
+              'Component-driven UI with utility-first styling, CSS custom properties, and responsive design throughout.',
+          },
+          {
+            name: 'Swiper.js + Base UI + shadcn/ui',
+            description:
+              'Accessible, composable primitives for interactive elements like dialogs, accordions, and this card carousel.',
+          },
+          {
+            name: 'Framer Motion',
+            description:
+              'Subtle animations and transitions to add life to page elements without sacrificing performance.',
+          },
+          {
+            name: 'Vite',
+            description:
+              'Fast dev server and optimised production builds with tree-shaking and code splitting.',
+          },
         ],
         challenges:
           'Balancing personality with professionalism was the core design challenge. The site needed to feel like me — opinionated and direct — while still communicating clearly to potential clients and employers. Getting the file-based routing, SSR, and client-side transitions to feel seamless with TanStack Start also required careful thought around loader patterns and prefetching.',
@@ -158,13 +179,41 @@ export function ProjectCards() {
       imageUrl: '/images/homepage/smokify_screenshot_3x4.webp',
       caseStudy: {
         techniques: [
-          'Next.js 16 + React 19 (front-end): App Router with server components, Stripe Checkout integration, Google reCAPTCHA v3 for bot protection, QR code generation, and Framer Motion for animated UI transitions.',
-          'Express v5 + Prisma ORM (backend): RESTful API with PostgreSQL via Prisma, JWT-based auth, bcryptjs password hashing, Multer for file uploads, OpenAI for AI-powered features, Brevo for transactional email, and Stripe for payment webhooks.',
-          'Security-first backend: Helmet for secure HTTP headers, CORS policy, express-rate-limit to prevent abuse, express-validator + Zod for input validation, and DOMPurify + jsdom for server-side HTML sanitisation.',
-          'Vite + TanStack Router (admin dashboard): File-based routing, TanStack Table for data-heavy views, TinyMCE rich text editor, React Hook Form + Zod for validated forms, React Dropzone for media uploads, and Sonner for toast notifications.',
-          'Monorepo architecture: Three independent repos — customer-facing storefront, REST API, and internal admin dashboard — each with its own deployment pipeline and clear separation of concerns.',
-          'Stripe subscription billing: Integrated Stripes subscription APIs with custom proration logic, trial periods, and webhook handling for a seamless recurring payment experience.',
-          'Swedish BankID auth: Implemented BankID login flow with secure token exchange, session management.',
+          {
+            name: 'Next.js 16 + React 19 (front-end)',
+            description:
+              'App Router with server components, Stripe Checkout integration, Google reCAPTCHA v3 for bot protection, QR code generation, and Framer Motion for animated UI transitions.',
+          },
+          {
+            name: 'Express v5 + Prisma ORM (backend)',
+            description:
+              'RESTful API with PostgreSQL via Prisma, JWT-based auth, bcryptjs password hashing, Multer for file uploads, OpenAI for AI-powered features, Brevo for transactional email, and Stripe for payment webhooks.',
+          },
+          {
+            name: 'Security-first backend',
+            description:
+              'Helmet for secure HTTP headers, CORS policy, express-rate-limit to prevent abuse, express-validator + Zod for input validation, and DOMPurify + jsdom for server-side HTML sanitisation.',
+          },
+          {
+            name: 'Vite + TanStack Router (admin dashboard)',
+            description:
+              'File-based routing, TanStack Table for data-heavy views, TinyMCE rich text editor, React Hook Form + Zod for validated forms, React Dropzone for media uploads, and Sonner for toast notifications.',
+          },
+          {
+            name: 'Monorepo architecture',
+            description:
+              'Three independent repos — customer-facing storefront, REST API, and internal admin dashboard — each with its own deployment pipeline and clear separation of concerns.',
+          },
+          {
+            name: 'Stripe subscription billing',
+            description:
+              'Integrated Stripes subscription APIs with custom proration logic, trial periods, and webhook handling for a seamless recurring payment experience.',
+          },
+          {
+            name: 'Swedish BankID auth',
+            description:
+              'Implemented BankID login flow with secure token exchange, session management.',
+          },
         ],
         challenges:
           'Keeping three codebases in sync without shared types was the biggest ongoing friction. API contracts between the backend and both clients had to be maintained manually, which led to subtle bugs at the boundaries. Implementing a secure, stateless auth flow across the storefront and admin dashboard — with short-lived JWTs and Swedish BankID, refresh tokens via httpOnly cookies, and proper CORS — required careful coordination. Stripe webhook verification and idempotency also demanded more rigour than expected. Subscription billing with Stripe was another area that revealed edge cases around proration, subscription management, failed payments, and customer churn that needed to be handled gracefully.',
@@ -179,11 +228,31 @@ export function ProjectCards() {
       imageUrl: '/images/homepage/vali_screenshot_3x4.webp',
       caseStudy: {
         techniques: [
-          'WordPress & WooCommerce: Fully custom theme built with Pinegrow — no page builder reliance — giving complete control over markup, performance, and visual design without unnecessary plugin overhead.',
-          'WPML multilingual: Site translated into English, German, and Swedish, with WPML managing string translations, WooCommerce product data, and hreflang tags for correct SEO indexing per locale.',
-          "jQuery checkout customisation: Bespoke checkout flow layered over WooCommerce's default, with jQuery handling dynamic UI updates, field validation, and UX improvements to the payment step.",
-          'Stripe & Klarna payments: Dual payment provider integration giving customers the choice between card payments via Stripe and buy-now-pay-later via Klarna — important for the Scandinavian market.',
-          'Plugin-minimal architecture: Deliberately kept the plugin footprint small to maintain site performance and reduce surface area for security vulnerabilities and update conflicts.',
+          {
+            name: 'WordPress & WooCommerce',
+            description:
+              'Fully custom theme built with Pinegrow — no page builder reliance — giving complete control over markup, performance, and visual design without unnecessary plugin overhead.',
+          },
+          {
+            name: 'WPML multilingual',
+            description:
+              'Site translated into English, German, and Swedish, with WPML managing string translations, WooCommerce product data, and hreflang tags for correct SEO indexing per locale.',
+          },
+          {
+            name: 'jQuery checkout customisation',
+            description:
+              "Bespoke checkout flow layered over WooCommerce's default, with jQuery handling dynamic UI updates, field validation, and UX improvements to the payment step.",
+          },
+          {
+            name: 'Stripe & Klarna payments',
+            description:
+              'Dual payment provider integration giving customers the choice between card payments via Stripe and buy-now-pay-later via Klarna — important for the Scandinavian market.',
+          },
+          {
+            name: 'Plugin-minimal architecture',
+            description:
+              'Deliberately kept the plugin footprint small to maintain site performance and reduce surface area for security vulnerabilities and update conflicts.',
+          },
         ],
         challenges:
           'Making WPML and WooCommerce behave consistently across three languages was more involved than expected — translated product slugs, currency localisation, and email templates all needed individual attention. Customising the WooCommerce checkout without breaking the underlying hooks and filters required a careful reading of the WooCommerce action/filter reference. Coordinating Stripe and Klarna side by side also meant handling divergent webhook payloads and order state transitions correctly.',

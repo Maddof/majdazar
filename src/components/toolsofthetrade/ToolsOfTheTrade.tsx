@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { PlusIcon } from 'lucide-react'
 import Accordion from '../accordion/Accordion'
 import SectionIntro from '../SectionIntro'
 
@@ -200,6 +201,13 @@ function ToolCard({
       >
         {tool.description}
       </p>
+
+      <PlusIcon
+        className={`pointer-events-none absolute right-2 bottom-2 size-4 transition-transform duration-300 ${
+          // Rotate 45 degrees when active or when hovering over the card while inactive
+          isActive ? 'rotate-45' : 'group-hover/toolcard:rotate-45'
+        }`}
+      />
     </motion.button>
   )
 }
@@ -209,7 +217,7 @@ export default function TechSection() {
 
   return (
     <>
-      <section>
+      <section id="tools-of-the-trade">
         <div className="container">
           <SectionIntro
             className="mb-24"
@@ -260,7 +268,7 @@ export default function TechSection() {
             ))}
         </div>
       </section>
-      <section>
+      <section id="honorable-mentions">
         <div className="container">
           <SectionIntro
             title="Honorable Mentions"
