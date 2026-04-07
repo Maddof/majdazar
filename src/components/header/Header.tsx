@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useLocation } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
 import { Menu } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -7,44 +7,44 @@ import SignatureM from '~/components/header/Signature'
 export function Header() {
   const [useLightColor, setUseLightColor] = useState(false)
   const [hasStartedScroll, setHasStartedScroll] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
-    const heroSection = document.querySelector<HTMLElement>(
-      '[data-hero-section]',
-    )
-    const triggerSection = document.querySelector<HTMLElement>(
-      '[data-below-hero-trigger]',
-    )
-
     const updateHeaderState = () => {
-      if (window.scrollY > 100) {
-        setHasStartedScroll(true)
-      }
+      const heroSection = document.querySelector<HTMLElement>(
+        '[data-hero-section]',
+      )
+      const triggerSection = document.querySelector<HTMLElement>(
+        '[data-below-hero-trigger]',
+      )
 
-      // Pages without a hero should use the default dark header color.
+      setHasStartedScroll(window.scrollY > 100)
+
       if (!heroSection || !triggerSection) {
         setUseLightColor(false)
         return
       }
 
       const triggerTop = triggerSection.getBoundingClientRect().top
-      setUseLightColor(triggerTop > 72) // 72 is the header height, so we switch to light color when the trigger section goes under the header
+      setUseLightColor(triggerTop > 72)
     }
 
-    updateHeaderState()
+    const raf = requestAnimationFrame(updateHeaderState)
+
     window.addEventListener('scroll', updateHeaderState, { passive: true })
     window.addEventListener('resize', updateHeaderState)
 
     return () => {
+      cancelAnimationFrame(raf)
       window.removeEventListener('scroll', updateHeaderState)
       window.removeEventListener('resize', updateHeaderState)
     }
-  }, [])
+  }, [location.pathname])
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 backdrop-blur-xs backdrop-opacity-35">
       <div
-        className={`container flex min-h-16 items-center justify-between py-4 transition-colors duration-300 ${
+        className={`container flex min-h-16 items-center justify-center py-4 transition-colors duration-300 ${
           useLightColor ? 'text-white' : 'text-foreground'
         }`}
       >
@@ -59,7 +59,7 @@ export function Header() {
           />
         </Link>
 
-        <motion.button
+        {/* <motion.button
           aria-label="Open navigation menu"
           className="cursor-pointer border-none bg-transparent p-0 transition-opacity hover:opacity-80"
           initial={{ opacity: 0 }}
@@ -67,7 +67,7 @@ export function Header() {
           transition={{ duration: 0.4, delay: 0.8, ease: 'easeOut' }}
         >
           <Menu className="size-10" />
-        </motion.button>
+        </motion.button> */}
       </div>
     </header>
   )

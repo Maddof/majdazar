@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useLocation } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import SignatureM from '~/components/hero/Signature'
@@ -80,7 +80,7 @@ function Home() {
         <div className="container">
           <SectionIntro
             title="My projects"
-            description="I have worked on a variety of projects, including web applications, mobile applications, and open-source libraries. Some of my notable projects include:"
+            description="From founder-led products to client platforms, these projects show how I design, build, and ship web experiences that solve real business problems."
           />
 
           <ProjectCards />
@@ -96,7 +96,11 @@ function Home() {
                 subtitle="Beyond the stack"
                 description="I’m a developer who speaks the language of business. As a two-time founder, I understand the grit required to take an idea from 0 to 1. I work across the entire stack and across the boardroom to build tech that actually works for people."
               />
-              <Button className="mt-6 text-[90%] leading-none font-light">
+              <Button
+                className="mt-6"
+                render={<Link to="/about" />}
+                nativeButton={false}
+              >
                 Read more
               </Button>
             </div>

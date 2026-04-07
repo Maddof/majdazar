@@ -21,8 +21,8 @@ export const Route = createRootRoute({
       },
       ...seo({
         title:
-          'TanStack Start | Type-Safe, Client-First, Full-Stack React Framework',
-        description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
+          'Majd Azar | Full-Stack Developer | React, NextJS, TypeScript, Node.js | Building Scalable Web Applications',
+        description: `Majd Azar is a full-stack developer specializing in React, NextJS, TypeScript, and Node.js, building scalable web applications.`,
       }),
     ],
     links: [
@@ -44,7 +44,7 @@ export const Route = createRootRoute({
         sizes: '16x16',
         href: '/favicon-16x16.png',
       },
-      { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
+      { rel: 'manifest', href: '/site.webmanifest', color: '#ffffff' },
       { rel: 'icon', href: '/favicon.ico' },
     ],
     scripts: [
