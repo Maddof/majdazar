@@ -49,11 +49,8 @@ function AboutPage() {
                 solutions that are not just technically solid, but useful in the
                 real world.
               </p>
-              <Button nativeButton={false} render={<Link to="/" />}>
-                Back to home
-              </Button>
-              <Button onClick={handleAnimation}>
-                {playCount > 0 ? 'Returning...' : 'Play animation'}
+              <Button onClick={handleAnimation} className="hover:opacity-80">
+                {playCount > 0 ? 'Returning...' : 'Return to homepage'}
               </Button>
             </div>
           </div>

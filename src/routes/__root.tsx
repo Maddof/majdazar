@@ -7,7 +7,7 @@ import { NotFound } from '~/components/NotFound'
 import { Footer } from '~/components/footer/Footer'
 import { Header } from '~/components/header/Header'
 import appCss from '~/styles/app.css?url'
-import { seo } from '~/utils/seo'
+import { portfolioSchema, seo } from '~/utils/seo'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -60,10 +60,16 @@ export const Route = createRootRoute({
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const jsonLd = portfolioSchema()
+
   return (
     <html>
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
       </head>
       <body>
         <Header />

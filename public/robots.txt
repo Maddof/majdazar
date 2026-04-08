@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://majdazar.com/sitemap.xml

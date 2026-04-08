@@ -82,7 +82,10 @@ function PortfolioCard({ id, title, imageUrl, caseStudy }: PortfolioCardProps) {
               <DialogTitle className="z-10 text-2xl font-bold tracking-widest text-white uppercase">
                 {title} Case Study
               </DialogTitle>
-              <DialogDescription className="z-10 mt-4 text-base text-white">
+              <DialogDescription
+                className="z-10 mt-4 text-base text-white"
+                render={<div />}
+              >
                 {/* Case study content goes here */}
                 <div className="scrollbar -mx-4 max-h-[50vh] overflow-y-auto px-4">
                   <div className="flex max-w-[50ch] flex-col gap-4">
