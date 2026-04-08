@@ -129,7 +129,7 @@ const toolCategories: ToolCategory[] = [
       { name: 'Framer Motion', image: '', description: '' },
       { name: 'Swiper', image: '', description: '' },
       { name: 'Python', image: '', description: '' },
-      { name: 'Objective-C', image: '', description: '' },
+      { name: 'C', image: '', description: '' },
       { name: 'C++', image: '', description: '' },
       { name: 'RestAPI', image: '', description: '' },
       { name: 'JWT', image: '', description: '' },
@@ -138,6 +138,16 @@ const toolCategories: ToolCategory[] = [
       { name: 'Strapi', image: '', description: '' },
       {
         name: 'Stripe',
+        image: '',
+        description: '',
+      },
+      {
+        name: 'Photoshop',
+        image: '',
+        description: '',
+      },
+      {
+        name: 'Illustrator',
         image: '',
         description: '',
       },

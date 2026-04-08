@@ -15,6 +15,7 @@ export const Route = createFileRoute('/')({
 function Home() {
   const [isSignatureDone, setIsSignatureDone] = useState(false)
   const [hasStartedScroll, setHasStartedScroll] = useState(false)
+  const [isBlinkActive, setIsBlinkActive] = useState(false)
 
   useEffect(() => {
     const onScroll = () => {
@@ -34,13 +35,38 @@ function Home() {
     <>
       <section
         data-hero-section
-        className="relative flex min-h-[55svh] w-full flex-col gap-12 bg-[url('/images/hero/majd-azar_hero-1.webp')] bg-cover bg-position-[80%_0%] text-white sm:min-h-svh"
+        className="relative flex min-h-[55svh] w-full flex-col gap-12 overflow-hidden bg-[url('/images/hero/bg.webp')] bg-cover text-white sm:min-h-svh"
       >
         <div className="container flex h-full flex-1 items-end sm:items-center">
+          <div className="group absolute right-0 bottom-0 z-20 h-[95%] sm:right-0 md:right-0 lg:right-28 xl:right-48">
+            <div className="relative h-full">
+              {/* Base image */}
+              <img
+                src="/images/hero/majd_transp.webp"
+                alt="Majd Azar"
+                className="block h-full w-auto object-cover opacity-95"
+              />
+              {/* Hover/touch hotspot: only this area triggers the blink overlay */}
+              <button
+                type="button"
+                aria-label="Trigger blink effect"
+                onTouchStart={() => setIsBlinkActive((prev) => !prev)}
+                className="peer absolute top-[8%] right-[28%] z-20 h-[26%] w-[28%] bg-transparent"
+              />
+              {/* Blink overlay image */}
+              <img
+                src="/images/hero/majd_transp_blink.webp"
+                alt="Majd Azar Blinking"
+                className={`pointer-events-none absolute inset-0 z-10 h-full w-auto object-cover transition-opacity duration-250 [clip-path:inset(0_0_66%_0)] peer-hover:opacity-100 ${
+                  isBlinkActive ? 'opacity-100' : 'opacity-0'
+                }`}
+              />
+            </div>
+          </div>
           {/* Overlay absolute */}
-          <div className="from-primary/15 to-primary/0 absolute inset-0 z-10 bg-linear-to-r" />
+          <div className="from-primary/65 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-r" />
 
-          <div className="from-primary/40 sm:from-primary/10 to-primary/0 absolute inset-0 z-10 bg-linear-to-tr" />
+          <div className="from-primary/40 sm:from-primary/10 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-tr" />
           <div className="z-20 flex flex-col items-start gap-2">
             <SignatureM
               onComplete={() => setIsSignatureDone(true)}
@@ -97,7 +123,7 @@ function Home() {
                 description="I’m a developer who speaks the language of business. As a two-time founder, I understand the grit required to take an idea from 0 to 1. I work across the entire stack and across the boardroom to build tech that actually works for people."
               />
               <Button
-                className="mt-6"
+                className="mt-6 w-full"
                 render={<Link to="/about" />}
                 nativeButton={false}
               >
