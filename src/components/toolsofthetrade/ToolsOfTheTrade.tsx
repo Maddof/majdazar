@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { PlusIcon } from 'lucide-react'
 import Accordion from '../accordion/Accordion'
 import SectionIntro from '../SectionIntro'
+import { ToolsContent } from '~/utils/strapi/homepage'
 
 type Tool = {
   name: string
@@ -222,7 +223,11 @@ function ToolCard({
   )
 }
 
-export default function TechSection() {
+export default function TechSection({
+  toolsContent,
+}: {
+  toolsContent: ToolsContent
+}) {
   const [activeTool, setActiveTool] = useState<string | null>(null)
 
   return (
@@ -231,8 +236,8 @@ export default function TechSection() {
         <div className="container">
           <SectionIntro
             className="mb-24"
-            title="Tools of the trade"
-            description="I’m a firm believer in using the right tool for the job. My stack is built around a modern developer experience and a 'ship fast' mentality. From front-end finesse to back-end stability, I leverage these technologies to build seamless, full-stack experiences without the bloat."
+            title={toolsContent.title}
+            description={toolsContent.description}
           />
 
           {toolCategories

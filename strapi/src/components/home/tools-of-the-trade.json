@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_home_tools_of_the_trades",
+  "info": {
+    "displayName": "Tools of the trade"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Tools of the trade",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "I’m a firm believer in using the right tool for the job. My stack is built around a modern developer experience and a 'ship fast' mentality. From front-end finesse to back-end stability, I leverage these technologies to build seamless, full-stack experiences without the bloat."
+    }
+  },
+  "config": {}
+}

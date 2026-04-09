@@ -22,6 +22,11 @@
       "type": "component",
       "component": "home.my-projects",
       "repeatable": false
+    },
+    "tools": {
+      "type": "component",
+      "component": "home.tools-of-the-trade",
+      "repeatable": false
     }
   }
 }

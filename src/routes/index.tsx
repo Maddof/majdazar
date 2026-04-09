@@ -38,6 +38,12 @@ const DEFAULT_PROJECTS = {
     'From founder-led products to client platforms, these projects show how I design, build, and ship web experiences that solve real business problems.',
 }
 
+const DEFAULT_TOOLS = {
+  title: 'Tools of the trade',
+  description:
+    'The tools, platforms, and services I use to design, build, and ship products that solve real business problems.',
+}
+
 function Home() {
   const { homepage, projects } = Route.useLoaderData()
   const [isSignatureDone, setIsSignatureDone] = useState(false)
@@ -53,6 +59,13 @@ function Home() {
     ...DEFAULT_PROJECTS,
     ...homepage?.projects,
   }
+
+  const toolsContent = {
+    ...DEFAULT_TOOLS,
+    ...homepage?.tools,
+  }
+
+  console.log('🚀 ~ file: index.tsx:86 ~ Home ~ toolsContent:', toolsContent)
 
   useEffect(() => {
     const onScroll = () => {
@@ -83,7 +96,7 @@ function Home() {
               {/* Base image */}
               <img
                 src={heroContent.portraitImageUrl}
-                alt={heroContent.typedName}
+                alt={heroContent.portraitImageAlt || heroContent.typedName}
                 className="block h-full w-auto object-cover opacity-95"
               />
               {/* Hover/touch hotspot: only this area triggers the blink overlay */}
@@ -96,7 +109,10 @@ function Home() {
               {/* Blink overlay image */}
               <img
                 src={heroContent.portraitBlinkImageUrl}
-                alt={`${heroContent.typedName} Blinking`}
+                alt={
+                  heroContent.portraitBlinkImageAlt ||
+                  `${heroContent.typedName} Blinking`
+                }
                 className={`pointer-events-none absolute inset-0 z-10 h-full w-auto object-cover transition-opacity duration-250 [clip-path:inset(0_0_66%_0)] peer-hover:opacity-100 ${
                   isBlinkActive ? 'opacity-100' : 'opacity-0'
                 }`}
@@ -152,7 +168,7 @@ function Home() {
           <ProjectCards projects={projects} />
         </div>
       </section>
-      <TechSection />
+      <TechSection toolsContent={toolsContent} />
       <section id="more-about-me " className="overflow-hidden">
         <div className="container">
           <div className="flex flex-col gap-8 sm:flex-row">

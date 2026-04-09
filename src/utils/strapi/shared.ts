@@ -44,4 +44,29 @@ function getMediaUrl(media: unknown): string | undefined {
   return undefined
 }
 
-export { STRAPI_BASE_URL, getMediaUrl }
+function getMediaAlternativeText(media: unknown): string | undefined {
+  if (!media || typeof media !== 'object') return undefined
+  const asAny = media as Record<string, unknown>
+
+  if (typeof asAny.alternativeText === 'string') {
+    return asAny.alternativeText
+  }
+
+  const data = asAny.data
+  if (!data || typeof data !== 'object') return undefined
+  const dataObj = data as Record<string, unknown>
+
+  if (typeof dataObj.alternativeText === 'string') {
+    return dataObj.alternativeText
+  }
+
+  const attrs = dataObj.attributes
+  if (!attrs || typeof attrs !== 'object') return undefined
+  const attrsObj = attrs as Record<string, unknown>
+
+  return typeof attrsObj.alternativeText === 'string'
+    ? attrsObj.alternativeText
+    : undefined
+}
+
+export { STRAPI_BASE_URL, getMediaUrl, getMediaAlternativeText }

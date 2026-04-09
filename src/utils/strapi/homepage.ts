@@ -1,5 +1,5 @@
 import { createServerFn } from '@tanstack/react-start'
-import { STRAPI_BASE_URL, getMediaUrl } from './shared'
+import { STRAPI_BASE_URL, getMediaUrl, getMediaAlternativeText } from './shared'
 
 type HeroContent = {
   typedName: string
@@ -8,21 +8,30 @@ type HeroContent = {
   summary?: string
   backgroundImageUrl?: string
   portraitImageUrl?: string
+  portraitImageAlt?: string
   portraitBlinkImageUrl?: string
+  portraitBlinkImageAlt?: string
 }
 
 type ProjectsContent = {
   title: string
-  description: string
+  description?: string
+}
+
+type ToolsContent = {
+  title: string
+  description?: string
 }
 
 type HomepageContent = {
   hero: HeroContent | null
   projects: ProjectsContent | null
+  tools: ToolsContent | null
 }
 
 const HOMEPAGE_QUERY = new URLSearchParams({
   'populate[projects]': '*',
+  'populate[tools]': '*',
   'populate[hero][populate][0]': 'backgroundImage',
   'populate[hero][populate][1]': 'portraitImage',
   'populate[hero][populate][2]': 'portraitBlinkImage',
@@ -54,7 +63,9 @@ function normalizeHeroPayload(
     summary,
     backgroundImageUrl: getMediaUrl(hero.backgroundImage),
     portraitImageUrl: getMediaUrl(hero.portraitImage),
+    portraitImageAlt: getMediaAlternativeText(hero.portraitImage),
     portraitBlinkImageUrl: getMediaUrl(hero.portraitBlinkImage),
+    portraitBlinkImageAlt: getMediaAlternativeText(hero.portraitBlinkImage),
   }
 }
 
@@ -80,6 +91,25 @@ function normalizeProjectsPayload(
   }
 }
 
+function normalizeToolsPayload(
+  attributes: Record<string, unknown>,
+): ToolsContent | null {
+  const toolsUnknown = attributes.tools
+  if (!toolsUnknown || typeof toolsUnknown !== 'object') {
+    return null
+  }
+
+  const tools = toolsUnknown as Record<string, unknown>
+  const title = typeof tools.title === 'string' ? tools.title : 'Tools'
+  const description =
+    typeof tools.description === 'string' ? tools.description : undefined
+
+  return {
+    title,
+    description,
+  }
+}
+
 function normalizeHomepagePayload(payload: unknown): HomepageContent | null {
   if (!payload || typeof payload !== 'object') {
     return null
@@ -98,6 +128,7 @@ function normalizeHomepagePayload(payload: unknown): HomepageContent | null {
   return {
     hero: normalizeHeroPayload(attributes),
     projects: normalizeProjectsPayload(attributes),
+    tools: normalizeToolsPayload(attributes),
   }
 }
 
@@ -120,5 +151,5 @@ const fetchHomepageContent = createServerFn({ method: 'GET' }).handler(
   },
 )
 
-export type { HeroContent, ProjectsContent, HomepageContent }
+export type { HeroContent, ProjectsContent, HomepageContent, ToolsContent }
 export { fetchHomepageContent }

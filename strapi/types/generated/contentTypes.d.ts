@@ -455,6 +455,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private
     projects: Schema.Attribute.Component<'home.my-projects', false>
     publishedAt: Schema.Attribute.DateTime
+    tools: Schema.Attribute.Component<'home.tools-of-the-trade', false>
     updatedAt: Schema.Attribute.DateTime
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private

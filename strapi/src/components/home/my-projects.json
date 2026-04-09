@@ -11,7 +11,7 @@
       "required": true
     },
     "description": {
-      "type": "string",
+      "type": "text",
       "default": "From founder-led products to client platforms, these projects show how I design, build, and ship web experiences that solve real business problems.",
       "required": false
     }
