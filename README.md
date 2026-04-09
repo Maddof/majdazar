@@ -21,8 +21,8 @@ npx gitpick TanStack/router/tree/main/examples/react/start-basic start-basic
 From your terminal:
 
 ```sh
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
 This starts your app in development mode, rebuilding assets on file changes.
@@ -32,5 +32,31 @@ This starts your app in development mode, rebuilding assets on file changes.
 To build the app for production:
 
 ```sh
-pnpm build
+npm run build
+```
+
+## Strapi (PostgreSQL)
+
+This repository now includes a Strapi app in `strapi/` configured for PostgreSQL.
+
+Database settings are in `strapi/.env`:
+
+- `DATABASE_CLIENT=postgres`
+- `DATABASE_HOST=localhost`
+- `DATABASE_PORT=5432`
+- `DATABASE_NAME=portfolio`
+- `DATABASE_USERNAME=majd`
+- `DATABASE_SSL=false`
+
+Run Strapi from the repository root:
+
+```sh
+npm run strapi:dev
+```
+
+Other useful commands:
+
+```sh
+npm run strapi:build
+npm run strapi:start
 ```

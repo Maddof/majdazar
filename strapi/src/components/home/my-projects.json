@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_home_my_projects",
+  "info": {
+    "displayName": "My projects"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "My projects",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "default": "From founder-led products to client platforms, these projects show how I design, build, and ship web experiences that solve real business problems.",
+      "required": false
+    }
+  },
+  "config": {}
+}

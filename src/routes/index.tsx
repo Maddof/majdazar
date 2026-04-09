@@ -7,15 +7,52 @@ import { ProjectCards } from '~/components/project-cards/ProjectCards'
 import SectionIntro from '~/components/SectionIntro'
 import TechSection from '~/components/toolsofthetrade/ToolsOfTheTrade'
 import { Button } from '~/components/ui/button'
+import { fetchHomepageContent } from '~/utils/strapi/homepage'
+import { fetchProjects } from '~/utils/strapi/projects'
 
 export const Route = createFileRoute('/')({
+  loader: async () => {
+    const [homepage, projects] = await Promise.all([
+      fetchHomepageContent(),
+      fetchProjects(),
+    ])
+
+    return { homepage, projects }
+  },
   component: Home,
 })
 
+const DEFAULT_HERO = {
+  typedName: 'Majd Azar',
+  title: 'Full-stack Dev | Founder @ Smokify',
+  location: 'Stockholm, Sweden.',
+  summary: '',
+  backgroundImageUrl: '/images/hero/bg.webp',
+  portraitImageUrl: '/images/hero/majd_transp.webp',
+  portraitBlinkImageUrl: '/images/hero/majd_transp_blink.webp',
+}
+
+const DEFAULT_PROJECTS = {
+  title: 'My projects',
+  description:
+    'From founder-led products to client platforms, these projects show how I design, build, and ship web experiences that solve real business problems.',
+}
+
 function Home() {
+  const { homepage, projects } = Route.useLoaderData()
   const [isSignatureDone, setIsSignatureDone] = useState(false)
   const [hasStartedScroll, setHasStartedScroll] = useState(false)
   const [isBlinkActive, setIsBlinkActive] = useState(false)
+
+  const heroContent = {
+    ...DEFAULT_HERO,
+    ...homepage?.hero,
+  }
+
+  const projectsContent = {
+    ...DEFAULT_PROJECTS,
+    ...homepage?.projects,
+  }
 
   useEffect(() => {
     const onScroll = () => {
@@ -35,15 +72,18 @@ function Home() {
     <>
       <section
         data-hero-section
-        className="relative flex min-h-[55svh] w-full flex-col gap-12 overflow-hidden bg-[url('/images/hero/bg.webp')] bg-cover text-white sm:min-h-svh"
+        className="relative flex min-h-[55svh] w-full flex-col gap-12 overflow-hidden bg-cover text-white sm:min-h-svh"
+        style={{
+          backgroundImage: `url('${heroContent.backgroundImageUrl}')`,
+        }}
       >
         <div className="container flex h-full flex-1 items-end sm:items-center">
           <div className="group absolute right-0 bottom-0 z-20 h-[95%] sm:right-0 md:right-0 lg:right-28 xl:right-48">
             <div className="relative h-full">
               {/* Base image */}
               <img
-                src="/images/hero/majd_transp.webp"
-                alt="Majd Azar"
+                src={heroContent.portraitImageUrl}
+                alt={heroContent.typedName}
                 className="block h-full w-auto object-cover opacity-95"
               />
               {/* Hover/touch hotspot: only this area triggers the blink overlay */}
@@ -55,8 +95,8 @@ function Home() {
               />
               {/* Blink overlay image */}
               <img
-                src="/images/hero/majd_transp_blink.webp"
-                alt="Majd Azar Blinking"
+                src={heroContent.portraitBlinkImageUrl}
+                alt={`${heroContent.typedName} Blinking`}
                 className={`pointer-events-none absolute inset-0 z-10 h-full w-auto object-cover transition-opacity duration-250 [clip-path:inset(0_0_66%_0)] peer-hover:opacity-100 ${
                   isBlinkActive ? 'opacity-100' : 'opacity-0'
                 }`}
@@ -74,7 +114,7 @@ function Home() {
             />
             <Typewriter
               start={isSignatureDone}
-              text="Majd Azar"
+              text={heroContent.typedName}
               // className="text-[200%] font-bold sm:text-[250%]"
             />
 
@@ -86,7 +126,7 @@ function Home() {
               }
               transition={{ duration: 0.35, delay: 1, ease: 'easeOut' }}
             >
-              Full-stack Dev | Founder @ Smokify
+              {heroContent.title}
             </motion.p>
 
             <motion.p
@@ -97,7 +137,7 @@ function Home() {
               }
               transition={{ duration: 0.4, delay: 1.4, ease: 'easeOut' }}
             >
-              Stockholm, Sweden.
+              {heroContent.summary || heroContent.location}
             </motion.p>
           </div>
         </div>
@@ -105,11 +145,11 @@ function Home() {
       <section data-below-hero-trigger className="overflow-hidden">
         <div className="container">
           <SectionIntro
-            title="My projects"
-            description="From founder-led products to client platforms, these projects show how I design, build, and ship web experiences that solve real business problems."
+            title={projectsContent.title}
+            description={projectsContent.description}
           />
 
-          <ProjectCards />
+          <ProjectCards projects={projects} />
         </div>
       </section>
       <TechSection />
