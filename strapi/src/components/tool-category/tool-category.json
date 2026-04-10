@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_tool_category_tool_categories",
+  "info": {
+    "displayName": "Tool Category"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Frontend",
+      "required": true
+    },
+    "honorableMention": {
+      "type": "boolean"
+    },
+    "toolItem": {
+      "type": "component",
+      "component": "tool-category.tool",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

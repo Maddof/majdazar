@@ -13,6 +13,18 @@
     "description": {
       "type": "text",
       "default": "I’m a firm believer in using the right tool for the job. My stack is built around a modern developer experience and a 'ship fast' mentality. From front-end finesse to back-end stability, I leverage these technologies to build seamless, full-stack experiences without the bloat."
+    },
+    "titleHonorable": {
+      "type": "string",
+      "default": "Honorable Mentions"
+    },
+    "descriptionHonorable": {
+      "type": "text"
+    },
+    "toolCategory": {
+      "type": "component",
+      "component": "tool-category.tool-category",
+      "repeatable": true
     }
   },
   "config": {}

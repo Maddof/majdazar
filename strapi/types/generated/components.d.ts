@@ -46,9 +46,44 @@ export interface HomeToolsOfTheTrade extends Struct.ComponentSchema {
   attributes: {
     description: Schema.Attribute.Text &
       Schema.Attribute.DefaultTo<"I\u2019m a firm believer in using the right tool for the job. My stack is built around a modern developer experience and a 'ship fast' mentality. From front-end finesse to back-end stability, I leverage these technologies to build seamless, full-stack experiences without the bloat.">
+    descriptionHonorable: Schema.Attribute.Text
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Tools of the trade'>
+    titleHonorable: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Honorable Mentions'>
+    toolCategory: Schema.Attribute.Component<
+      'tool-category.tool-category',
+      true
+    >
+  }
+}
+
+export interface ToolCategoryTool extends Struct.ComponentSchema {
+  collectionName: 'components_tool_category_tools'
+  info: {
+    displayName: 'tool'
+  }
+  attributes: {
+    description: Schema.Attribute.Text
+    image: Schema.Attribute.Media<'images' | 'files'>
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Next'>
+  }
+}
+
+export interface ToolCategoryToolCategory extends Struct.ComponentSchema {
+  collectionName: 'components_tool_category_tool_categories'
+  info: {
+    displayName: 'Tool Category'
+  }
+  attributes: {
+    honorableMention: Schema.Attribute.Boolean
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Frontend'>
+    toolItem: Schema.Attribute.Component<'tool-category.tool', true>
   }
 }
 
@@ -58,6 +93,8 @@ declare module '@strapi/strapi' {
       'home.hero': HomeHero
       'home.my-projects': HomeMyProjects
       'home.tools-of-the-trade': HomeToolsOfTheTrade
+      'tool-category.tool': ToolCategoryTool
+      'tool-category.tool-category': ToolCategoryToolCategory
     }
   }
 }

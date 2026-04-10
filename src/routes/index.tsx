@@ -65,7 +65,11 @@ function Home() {
     ...homepage?.tools,
   }
 
-  console.log('🚀 ~ file: index.tsx:86 ~ Home ~ toolsContent:', toolsContent)
+  // console.log('🚀 ~ file: index.tsx:86 ~ Home ~ homepage:', homepage)
+
+  console.log('🚀 ~ file: index.tsx:86 ~ Home ~ toolsContent:')
+
+  console.dir({ toolsContent }, { depth: null })
 
   useEffect(() => {
     const onScroll = () => {

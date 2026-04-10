@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { PlusIcon } from 'lucide-react'
 import Accordion from '../accordion/Accordion'
@@ -230,6 +230,22 @@ export default function TechSection({
 }) {
   const [activeTool, setActiveTool] = useState<string | null>(null)
 
+  const resolvedToolCategories = useMemo<ToolCategory[]>(() => {
+    if (!toolsContent.toolCategory || toolsContent.toolCategory.length === 0) {
+      return toolCategories
+    }
+
+    return toolsContent.toolCategory.map((category) => ({
+      title: category.title,
+      honorableMention: category.honorableMention,
+      tools: category.toolItem.map((tool) => ({
+        name: tool.title,
+        image: tool.imageUrl || '',
+        description: tool.description || '',
+      })),
+    }))
+  }, [toolsContent.toolCategory])
+
   return (
     <>
       <section id="tools-of-the-trade">
@@ -240,7 +256,7 @@ export default function TechSection({
             description={toolsContent.description}
           />
 
-          {toolCategories
+          {resolvedToolCategories
             .filter((c) => !c.honorableMention)
             .map((category, index) => (
               <div key={category.title}>
@@ -286,11 +302,14 @@ export default function TechSection({
       <section id="honorable-mentions">
         <div className="container">
           <SectionIntro
-            title="Honorable Mentions"
-            description="Services and tech I’ve worked with across professional roles, studies and personal projects. Not an exhaustive list, but a snapshot of the wider ecosystem I’m familiar with."
+            title={toolsContent.titleHonorable || 'Honorable Mentions'}
+            description={
+              toolsContent.descriptionHonorable ||
+              'Here are some additional tools and technologies that I have experience with and want to give a shoutout to.'
+            }
           />
           <ul className="my-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
-            {toolCategories
+            {resolvedToolCategories
               .filter((c) => c.honorableMention)
               .flatMap((c) => c.tools)
               .map((tool) => (

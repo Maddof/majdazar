@@ -21,6 +21,24 @@ type ProjectsContent = {
 type ToolsContent = {
   title: string
   description?: string
+  toolCategory?: ToolCategoryContent[]
+  titleHonorable?: string
+  descriptionHonorable?: string
+}
+
+type ToolCategoryContent = {
+  id?: number
+  title: string
+  honorableMention: boolean
+  toolItem: ToolItemContent[]
+}
+
+type ToolItemContent = {
+  id?: number
+  title: string
+  description?: string
+  imageUrl?: string
+  imageAlt?: string
 }
 
 type HomepageContent = {
@@ -28,14 +46,6 @@ type HomepageContent = {
   projects: ProjectsContent | null
   tools: ToolsContent | null
 }
-
-const HOMEPAGE_QUERY = new URLSearchParams({
-  'populate[projects]': '*',
-  'populate[tools]': '*',
-  'populate[hero][populate][0]': 'backgroundImage',
-  'populate[hero][populate][1]': 'portraitImage',
-  'populate[hero][populate][2]': 'portraitBlinkImage',
-})
 
 function normalizeHeroPayload(
   attributes: Record<string, unknown>,
@@ -91,7 +101,7 @@ function normalizeProjectsPayload(
   }
 }
 
-function normalizeToolsPayload(
+function normalizeToolsSectionPayload(
   attributes: Record<string, unknown>,
 ): ToolsContent | null {
   const toolsUnknown = attributes.tools
@@ -103,11 +113,96 @@ function normalizeToolsPayload(
   const title = typeof tools.title === 'string' ? tools.title : 'Tools'
   const description =
     typeof tools.description === 'string' ? tools.description : undefined
+  const toolCategory = normalizeToolCategoriesPayload(tools.toolCategory)
+
+  const titleHonorable =
+    typeof tools.titleHonorable === 'string'
+      ? tools.titleHonorable
+      : 'Honorable Mentions'
+  const descriptionHonorable =
+    typeof tools.descriptionHonorable === 'string'
+      ? tools.descriptionHonorable
+      : 'Here are some additional tools and technologies that I have experience with and want to give a shoutout to.'
 
   return {
     title,
     description,
+    toolCategory,
+    titleHonorable,
+    descriptionHonorable,
   }
+}
+
+function normalizeToolCategoriesPayload(
+  value: unknown,
+): ToolCategoryContent[] | undefined {
+  if (!Array.isArray(value)) {
+    return undefined
+  }
+
+  const categories: ToolCategoryContent[] = []
+
+  for (const entry of value) {
+    if (!entry || typeof entry !== 'object') {
+      continue
+    }
+
+    const category = entry as Record<string, unknown>
+    const id = typeof category.id === 'number' ? category.id : undefined
+    const title =
+      typeof category.title === 'string' ? category.title : 'Untitled category'
+    const honorableMention =
+      typeof category.honorableMention === 'boolean'
+        ? category.honorableMention
+        : false
+
+    categories.push({
+      id,
+      title,
+      honorableMention,
+      toolItem: normalizeToolItemsPayload(category.toolItem),
+    })
+  }
+
+  return categories
+}
+
+function normalizeToolItemsPayload(value: unknown): ToolItemContent[] {
+  if (!Array.isArray(value)) {
+    return []
+  }
+
+  const items: ToolItemContent[] = []
+
+  for (const entry of value) {
+    if (!entry || typeof entry !== 'object') {
+      continue
+    }
+
+    const item = entry as Record<string, unknown>
+    const title = typeof item.title === 'string' ? item.title : 'Untitled tool'
+    const normalizedItem: ToolItemContent = {
+      title,
+      ...(typeof item.id === 'number' ? { id: item.id } : {}),
+      ...(typeof item.description === 'string'
+        ? { description: item.description }
+        : {}),
+    }
+
+    const imageUrl = getMediaUrl(item.image)
+    if (imageUrl) {
+      normalizedItem.imageUrl = imageUrl
+    }
+
+    const imageAlt = getMediaAlternativeText(item.image)
+    if (imageAlt) {
+      normalizedItem.imageAlt = imageAlt
+    }
+
+    items.push(normalizedItem)
+  }
+
+  return items
 }
 
 function normalizeHomepagePayload(payload: unknown): HomepageContent | null {
@@ -128,28 +223,67 @@ function normalizeHomepagePayload(payload: unknown): HomepageContent | null {
   return {
     hero: normalizeHeroPayload(attributes),
     projects: normalizeProjectsPayload(attributes),
-    tools: normalizeToolsPayload(attributes),
+    tools: normalizeToolsSectionPayload(attributes),
   }
 }
 
 const fetchHomepageContent = createServerFn({ method: 'GET' }).handler(
   async (): Promise<HomepageContent | null> => {
+    const HOMEPAGE_QUERY_STRING =
+      'populate[hero][populate]=*' +
+      '&populate[projects]=*' +
+      '&populate[tools][populate][toolCategory][populate][toolItem][populate]=image'
+
     try {
       const res = await fetch(
-        `${STRAPI_BASE_URL}/api/homepage?${HOMEPAGE_QUERY.toString()}`,
+        `${STRAPI_BASE_URL}/api/homepage?${HOMEPAGE_QUERY_STRING}`,
       )
 
       if (!res.ok) {
+        const errorBody = await res.text().catch(() => '')
+        console.error(
+          `Failed to fetch homepage content. Status: ${res.status} StatusText: ${res.statusText}`,
+          errorBody,
+        )
         return null
       }
 
       const payload = (await res.json()) as unknown
-      return normalizeHomepagePayload(payload)
-    } catch {
+
+      // console.log(
+      //   '🚀 ~ file: homepage.ts:173 ~ fetchHomepageContent ~ payload:',
+      // )
+      // console.dir({ payload }, { depth: null })
+
+      const normalizedContent = normalizeHomepagePayload(payload)
+
+      // console.debug('Homepage tools normalized:', {
+      //   categoriesCount: normalizedContent?.tools?.toolCategory?.length ?? 0,
+      //   toolCategory: normalizedContent?.tools?.toolCategory,
+      // })
+
+      // console.log(
+      //   '🚀 ~ file: homepage.ts:177 ~ fetchHomepageContent ~ normalizedContent:',
+      //   normalizedContent,
+      // )
+
+      return normalizedContent
+    } catch (error) {
+      console.error(
+        'Failed to fetch homepage content due to network/runtime error:',
+        error,
+      )
       return null
     }
   },
 )
 
-export type { HeroContent, ProjectsContent, HomepageContent, ToolsContent }
+export type {
+  HeroContent,
+  ProjectsContent,
+  HomepageContent,
+  ToolsContent,
+  ToolCategoryContent,
+  ToolItemContent,
+}
 export { fetchHomepageContent }
