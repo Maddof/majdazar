@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { RICH_TEXT_COPY } from '~/content/copy'
 import { cn } from '~/lib/utils'
 import type { StrapiBlockNode, StrapiInlineNode } from '~/utils/strapi/projects'
 
@@ -82,7 +83,7 @@ type StrapiRichTextProps = {
 function StrapiRichText({
   blocks,
   className,
-  emptyText = 'No content available yet.',
+  emptyText = RICH_TEXT_COPY.emptyContentLabel,
 }: StrapiRichTextProps) {
   if (blocks.length === 0) {
     return <p>{emptyText}</p>

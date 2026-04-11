@@ -16,6 +16,7 @@ import 'swiper/css/effect-cards'
 
 import './styles.css'
 import { useRef } from 'react'
+import { PROJECT_CARDS_COPY } from '~/content/copy'
 import { StrapiRichText } from '../rich-text/StrapiRichText'
 import type { ProjectContent, StrapiBlockNode } from '~/utils/strapi/projects'
 
@@ -58,7 +59,7 @@ function PortfolioCard({
           rel="noreferrer"
           className="bg-primary absolute right-3 bottom-3 z-30 border border-white/75 p-2 text-sm font-semibold tracking-widest text-white uppercase opacity-95 transition-opacity hover:opacity-100"
         >
-          Visit site
+          {PROJECT_CARDS_COPY.visitSiteLabel}
         </a>
       ) : null}
       <div className="bg-primary/75 absolute top-1/2 left-1/2 z-20 flex w-full -translate-x-1/2 -translate-y-1/2 items-center justify-center border-y border-white/75">
@@ -69,7 +70,7 @@ function PortfolioCard({
                 variant="ghost"
                 className="text-base font-bold tracking-widest hover:text-white"
               >
-                View case study
+                {PROJECT_CARDS_COPY.viewCaseStudyLabel}
               </Button>
             }
           ></DialogTrigger>
@@ -84,7 +85,7 @@ function PortfolioCard({
 
             <DialogHeader>
               <DialogTitle className="z-10 text-2xl font-bold tracking-widest text-white uppercase">
-                {title} Case Study
+                {title} {PROJECT_CARDS_COPY.caseStudySuffix}
               </DialogTitle>
               <DialogDescription
                 className="z-10 mt-4 text-base text-white"
@@ -94,7 +95,7 @@ function PortfolioCard({
                   <StrapiRichText
                     blocks={description}
                     className="max-w-[58ch] text-white"
-                    emptyText="No case study content available yet."
+                    emptyText={PROJECT_CARDS_COPY.richTextEmptyLabel}
                   />
                 </div>
               </DialogDescription>
@@ -108,7 +109,7 @@ function PortfolioCard({
                     ref={closeCaseStudyButtonRef}
                     id="close-case-study-button"
                   >
-                    Close
+                    {PROJECT_CARDS_COPY.closeLabel}
                   </Button>
                 }
               />
@@ -122,7 +123,11 @@ function PortfolioCard({
 
 export function ProjectCards({ projects }: { projects: ProjectContent[] }) {
   if (projects.length === 0) {
-    return <p className="text-muted-foreground">No projects published yet.</p>
+    return (
+      <p className="text-muted-foreground">
+        {PROJECT_CARDS_COPY.emptyProjectsLabel}
+      </p>
+    )
   }
 
   return (

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import SectionIntro from '~/components/SectionIntro'
 import { StrapiRichText } from '~/components/rich-text/StrapiRichText'
 import { Button } from '~/components/ui/button'
+import { ABOUT_PAGE_COPY, ABOUT_PAGE_DEFAULT_CONTENT } from '~/content/copy'
 import { fetchAboutContent } from '~/utils/strapi/about'
 import type { AboutContent } from '~/utils/strapi/about'
 
@@ -14,26 +15,7 @@ export const Route = createFileRoute('/about')({
   component: AboutPage,
 })
 
-const DEFAULT_ABOUT_CONTENT: AboutContent = {
-  title: 'More about me',
-  subtitle: 'Beyond the stack',
-  content: [
-    {
-      type: 'paragraph',
-      children: [
-        {
-          type: 'text',
-          text: 'I’m a developer who speaks the language of business. As a two-time founder, I understand the grit required to take an idea from 0 to 1. I work across the entire stack and across the boardroom to build tech that actually works for people.',
-        },
-      ],
-    },
-  ],
-  returnHomeLinkText: 'Return to homepage',
-  featuredImageUrl: '/images/homepage/majd_sketch.jpg',
-  featuredImageAlt: 'pencil sketch of Majd Azar',
-  featuredImageAnimatedUrl: '/images/about/majd_gif_fist_optimized.gif',
-  featuredImageAnimatedAlt: 'animated pencil sketch of Majd Azar fist bumping',
-}
+const DEFAULT_ABOUT_CONTENT: AboutContent = ABOUT_PAGE_DEFAULT_CONTENT
 
 function AboutPage() {
   const [playCount, setPlayCount] = useState(0)
@@ -73,7 +55,7 @@ function AboutPage() {
             <div className="mt-6 flex flex-col gap-6">
               <StrapiRichText
                 blocks={aboutPageContent.content}
-                emptyText="About content is coming soon."
+                emptyText={ABOUT_PAGE_COPY.richTextEmptyLabel}
               />
 
               <Button
@@ -82,7 +64,7 @@ function AboutPage() {
                 disabled={disabledButton}
               >
                 {playCount > 0
-                  ? 'Returning...'
+                  ? ABOUT_PAGE_COPY.returningLabel
                   : aboutPageContent.returnHomeLinkText}
               </Button>
             </div>

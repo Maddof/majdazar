@@ -1,4 +1,5 @@
 import { motion, type Variants } from 'framer-motion'
+import { FOOTER_COPY } from '~/content/copy'
 
 const containerVariants: Variants = {
   hidden: {},
@@ -33,17 +34,16 @@ export function Footer() {
           variants={itemVariants}
           className="text-2xl font-bold tracking-tight uppercase sm:text-3xl"
         >
-          Majd Azar
+          {FOOTER_COPY.name}
         </motion.p>
         <motion.img
           variants={itemVariants}
           src="/images/assets/signatur_majd-azar.svg"
-          alt="Majd Azar signature"
+          alt={FOOTER_COPY.signatureAlt}
           className="mx-1 h-18 w-auto"
         />
         <motion.p variants={itemVariants}>
-          © {new Date().getFullYear()} | Built with React, TypeScript, Tanstack
-          and Vite
+          © {new Date().getFullYear()} | {FOOTER_COPY.builtWithLabel}
         </motion.p>
       </motion.div>
     </footer>

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { HOME_COPY, HOME_DEFAULT_CONTENT } from '~/content/copy'
 import SignatureM from '~/components/hero/Signature'
 import Typewriter from '~/components/hero/Typewriter'
 import { ProjectCards } from '~/components/project-cards/ProjectCards'
@@ -22,37 +23,6 @@ export const Route = createFileRoute('/')({
   component: Home,
 })
 
-const DEFAULT_HERO = {
-  typedName: 'Majd Azar',
-  title: 'Full-stack Dev | Founder @ Smokify',
-  location: 'Stockholm, Sweden.',
-  summary: '',
-  backgroundImageUrl: '/images/hero/bg.webp',
-  portraitImageUrl: '/images/hero/majd_transp.webp',
-  portraitBlinkImageUrl: '/images/hero/majd_transp_blink.webp',
-}
-
-const DEFAULT_PROJECTS = {
-  title: 'My projects',
-  description:
-    'From founder-led products to client platforms, these projects show how I design, build, and ship web experiences that solve real business problems.',
-}
-
-const DEFAULT_TOOLS = {
-  title: 'Tools of the trade',
-  description:
-    'The tools, platforms, and services I use to design, build, and ship products that solve real business problems.',
-}
-
-const DEFAULT_ABOUT = {
-  title: 'More about me',
-  subtitle: 'Beyond the stack',
-  description:
-    'I’m a developer who speaks the language of business. As a two-time founder, I understand the grit required to take an idea from 0 to 1. I work across the entire stack and across the boardroom to build tech that actually works for people.',
-  imageUrl: '/images/homepage/majd_sketch.jpg',
-  imageAlt: 'pencil sketch of Majd Azar',
-}
-
 function Home() {
   const { homepage, projects } = Route.useLoaderData()
   const [isSignatureDone, setIsSignatureDone] = useState(false)
@@ -60,22 +30,22 @@ function Home() {
   const [isBlinkActive, setIsBlinkActive] = useState(false)
 
   const heroContent = {
-    ...DEFAULT_HERO,
+    ...HOME_DEFAULT_CONTENT.hero,
     ...homepage?.hero,
   }
 
   const projectsContent = {
-    ...DEFAULT_PROJECTS,
+    ...HOME_DEFAULT_CONTENT.projects,
     ...homepage?.projects,
   }
 
   const toolsContent = {
-    ...DEFAULT_TOOLS,
+    ...HOME_DEFAULT_CONTENT.tools,
     ...homepage?.tools,
   }
 
   const aboutContent = {
-    ...DEFAULT_ABOUT,
+    ...HOME_DEFAULT_CONTENT.about,
     ...homepage?.about,
   }
 
@@ -114,7 +84,7 @@ function Home() {
               {/* Hover/touch hotspot: only this area triggers the blink overlay */}
               <button
                 type="button"
-                aria-label="Trigger blink effect"
+                aria-label={HOME_COPY.triggerBlinkLabel}
                 onTouchStart={() => setIsBlinkActive((prev) => !prev)}
                 className="peer absolute top-[8%] right-[28%] z-20 h-[26%] w-[28%] bg-transparent"
               />
@@ -195,13 +165,13 @@ function Home() {
                 render={<Link to="/about" />}
                 nativeButton={false}
               >
-                Read more
+                {HOME_COPY.readMoreCta}
               </Button>
             </div>
             <div className="w-full sm:w-2/4">
               <img
                 src={aboutContent.imageUrl}
-                alt={aboutContent.imageAlt || 'More about me'}
+                alt={aboutContent.imageAlt || HOME_COPY.aboutImageFallbackAlt}
                 className="w-full rounded-lg"
                 loading="lazy"
               />
