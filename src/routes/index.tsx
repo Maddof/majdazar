@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useLocation } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import SignatureM from '~/components/hero/Signature'
@@ -78,11 +78,6 @@ function Home() {
     ...DEFAULT_ABOUT,
     ...homepage?.about,
   }
-
-  // console.log('🚀 ~ file: index.tsx:86 ~ Home ~ homepage:', homepage)
-  console.log('🚀, about content:', aboutContent)
-
-  // console.log('🚀 ~ file: index.tsx:86 ~ Home ~ toolsContent:')
 
   useEffect(() => {
     const onScroll = () => {

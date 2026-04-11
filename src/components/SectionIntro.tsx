@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 type SectionIntroProps = {
   title: ReactNode
   subtitle?: ReactNode
-  description: ReactNode
+  description?: ReactNode
   className?: string
   showBackgroundAccent?: boolean
 }
@@ -28,7 +28,7 @@ export default function SectionIntro({
         ) : null}
       </h2>
       {subtitle && <h3 className="mb-4">{subtitle}</h3>}
-      <p className="isolate max-w-2xl">{description}</p>
+      {description && <p className="isolate max-w-2xl">{description}</p>}
     </div>
   )
 }

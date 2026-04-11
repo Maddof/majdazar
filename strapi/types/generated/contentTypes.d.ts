@@ -430,6 +430,40 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   }
 }
 
+export interface ApiAboutAbout extends Struct.SingleTypeSchema {
+  collectionName: 'abouts'
+  info: {
+    displayName: 'About'
+    pluralName: 'abouts'
+    singularName: 'about'
+  }
+  options: {
+    draftAndPublish: true
+  }
+  attributes: {
+    content: Schema.Attribute.Blocks
+    createdAt: Schema.Attribute.DateTime
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private
+    featuredImage: Schema.Attribute.Media<'files' | 'images'>
+    featuredImageAnimated: Schema.Attribute.Media<'images' | 'files'>
+    locale: Schema.Attribute.String & Schema.Attribute.Private
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::about.about'> &
+      Schema.Attribute.Private
+    publishedAt: Schema.Attribute.DateTime
+    returnHomeLinkText: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Return to homepage'>
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Building scalable web applications from idea to production'>
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Beyond Code'>
+    updatedAt: Schema.Attribute.DateTime
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private
+  }
+}
+
 export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   collectionName: 'homepages'
   info: {
@@ -1005,6 +1039,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken
       'admin::transfer-token-permission': AdminTransferTokenPermission
       'admin::user': AdminUser
+      'api::about.about': ApiAboutAbout
       'api::homepage.homepage': ApiHomepageHomepage
       'api::project.project': ApiProjectProject
       'plugin::content-releases.release': PluginContentReleasesRelease

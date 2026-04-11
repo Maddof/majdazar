@@ -1,21 +1,54 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { useState } from 'react'
 import SectionIntro from '~/components/SectionIntro'
+import { StrapiRichText } from '~/components/rich-text/StrapiRichText'
 import { Button } from '~/components/ui/button'
+import { fetchAboutContent } from '~/utils/strapi/about'
+import type { AboutContent } from '~/utils/strapi/about'
 
 export const Route = createFileRoute('/about')({
+  loader: async () => {
+    const aboutContent = await fetchAboutContent()
+    return { aboutContent }
+  },
   component: AboutPage,
 })
+
+const DEFAULT_ABOUT_CONTENT: AboutContent = {
+  title: 'More about me',
+  subtitle: 'Beyond the stack',
+  content: [
+    {
+      type: 'paragraph',
+      children: [
+        {
+          type: 'text',
+          text: 'I’m a developer who speaks the language of business. As a two-time founder, I understand the grit required to take an idea from 0 to 1. I work across the entire stack and across the boardroom to build tech that actually works for people.',
+        },
+      ],
+    },
+  ],
+  returnHomeLinkText: 'Return to homepage',
+  featuredImageUrl: '/images/homepage/majd_sketch.jpg',
+  featuredImageAlt: 'pencil sketch of Majd Azar',
+  featuredImageAnimatedUrl: '/images/about/majd_gif_fist_optimized.gif',
+  featuredImageAnimatedAlt: 'animated pencil sketch of Majd Azar fist bumping',
+}
 
 function AboutPage() {
   const [playCount, setPlayCount] = useState(0)
   const [disabledButton, setDisabledButton] = useState(false)
-  const [gifVisible, setGifVisible] = useState(false)
+
+  const { aboutContent } = Route.useLoaderData()
+
+  const aboutPageContent = {
+    ...DEFAULT_ABOUT_CONTENT,
+    ...aboutContent,
+  }
 
   const navigate = useNavigate()
 
   const handleAnimation = () => {
-    setGifVisible(false)
     setPlayCount((count) => count + 1)
     setDisabledButton(true)
 
@@ -32,40 +65,33 @@ function AboutPage() {
         <div className="grid gap-10 sm:grid-cols-2 sm:items-start">
           <div>
             <SectionIntro
-              title="Beyond Code"
-              subtitle="Building scalable web applications from idea to production"
-              description="I build products that connect strong technical execution with real business outcomes. Over the years, I have worked across front-end, back-end, and product strategy to take ideas from concept to shipped experiences."
+              title={aboutPageContent.title}
+              subtitle={aboutPageContent.subtitle}
               showBackgroundAccent={false}
             />
 
             <div className="mt-6 flex flex-col gap-6">
-              <p>
-                My focus is modern web development with React, Next.js,
-                TypeScript, Node.js, and practical system design. I care about
-                performance, accessibility, and maintainable architecture, but I
-                also care just as much about clarity: why we are building
-                something and how it creates value.
-              </p>
-              <p>
-                As an entrepreneur, I have learned to move between code and
-                product decisions quickly. That perspective helps me build
-                solutions that are not just technically solid, but useful in the
-                real world.
-              </p>
+              <StrapiRichText
+                blocks={aboutPageContent.content}
+                emptyText="About content is coming soon."
+              />
+
               <Button
                 onClick={handleAnimation}
                 className="hover:opacity-80"
                 disabled={disabledButton}
               >
-                {playCount > 0 ? 'Returning...' : 'Return to homepage'}
+                {playCount > 0
+                  ? 'Returning...'
+                  : aboutPageContent.returnHomeLinkText}
               </Button>
             </div>
           </div>
 
           <div className="relative overflow-hidden border border-black">
             <img
-              src="/images/about/frame_0_delay-0.2s.gif"
-              alt="Portrait sketch of Majd Azar saying hello"
+              src={aboutPageContent.featuredImageUrl}
+              alt={aboutPageContent.featuredImageAlt}
               className={`h-full w-full object-cover transition-opacity duration-300`}
               loading="eager"
             />
@@ -73,9 +99,8 @@ function AboutPage() {
             {playCount > 0 ? (
               <img
                 key={playCount}
-                src={`/images/about/majd_gif_fist_optimized.gif?play=${playCount}`}
-                alt="Portrait sketch of Majd Azar saying hello"
-                onLoad={() => setGifVisible(true)}
+                src={`${aboutPageContent.featuredImageAnimatedUrl}?play=${playCount}`}
+                alt={aboutPageContent.featuredImageAnimatedAlt}
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300`}
                 loading="eager"
               />

@@ -16,11 +16,8 @@ import 'swiper/css/effect-cards'
 
 import './styles.css'
 import { useRef } from 'react'
-import type {
-  ProjectContent,
-  StrapiBlockNode,
-  StrapiInlineNode,
-} from '~/utils/strapi/projects'
+import { StrapiRichText } from '../rich-text/StrapiRichText'
+import type { ProjectContent, StrapiBlockNode } from '~/utils/strapi/projects'
 
 // import required modules
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -32,66 +29,6 @@ type PortfolioCardProps = {
   imageUrl: string
   liveLink?: string
   description: StrapiBlockNode[]
-}
-
-function renderInlineNode(node: StrapiInlineNode, key: string) {
-  if (node.type === 'link') {
-    return (
-      <a
-        key={key}
-        href={node.url}
-        target={node.target || '_blank'}
-        rel="noreferrer"
-        className="underline underline-offset-4"
-      >
-        {node.children.map((child, index) =>
-          renderInlineNode(child, `${key}-${index}`),
-        )}
-      </a>
-    )
-  }
-
-  let content = <>{node.text}</>
-
-  if (node.code) {
-    content = <code>{content}</code>
-  }
-  if (node.bold) {
-    content = <strong>{content}</strong>
-  }
-  if (node.italic) {
-    content = <em>{content}</em>
-  }
-  if (node.underline) {
-    content = <span className="underline">{content}</span>
-  }
-  if (node.strikethrough) {
-    content = <span className="line-through">{content}</span>
-  }
-
-  return <span key={key}>{content}</span>
-}
-
-function renderBlock(block: StrapiBlockNode, index: number) {
-  const content = block.children.map((child, childIndex) =>
-    renderInlineNode(child, `${index}-${childIndex}`),
-  )
-
-  if (block.type === 'heading') {
-    const HeadingTag = block.level === 4 ? 'h4' : 'h3'
-
-    return (
-      <HeadingTag key={index} className="mt-6 text-lg font-bold first:mt-0">
-        {content}
-      </HeadingTag>
-    )
-  }
-
-  return (
-    <p key={index} className="leading-7">
-      {content}
-    </p>
-  )
 }
 
 function PortfolioCard({
@@ -154,15 +91,11 @@ function PortfolioCard({
                 render={<div />}
               >
                 <div className="scrollbar -mx-4 max-h-[50vh] overflow-y-auto px-4">
-                  <div className="flex max-w-[58ch] flex-col gap-4 text-white">
-                    {description.length > 0 ? (
-                      description.map((block, index) =>
-                        renderBlock(block, index),
-                      )
-                    ) : (
-                      <p>No case study content available yet.</p>
-                    )}
-                  </div>
+                  <StrapiRichText
+                    blocks={description}
+                    className="max-w-[58ch] text-white"
+                    emptyText="No case study content available yet."
+                  />
                 </div>
               </DialogDescription>
             </DialogHeader>
