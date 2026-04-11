@@ -42,7 +42,7 @@ function AboutPage() {
   }
 
   return (
-    <section className="overflow-hidden py-16 sm:py-24">
+    <section className="py-16 sm:py-24">
       <div className="container">
         <div className="grid gap-10 sm:grid-cols-2 sm:items-start">
           <div>
@@ -69,24 +69,25 @@ function AboutPage() {
               </Button>
             </div>
           </div>
-
-          <div className="relative overflow-hidden border border-black">
-            <img
-              src={aboutPageContent.featuredImageUrl}
-              alt={aboutPageContent.featuredImageAlt}
-              className={`h-full w-full object-cover transition-opacity duration-300`}
-              loading="eager"
-            />
-
-            {playCount > 0 ? (
+          <div className="sticky top-20 self-start">
+            <div className="relative overflow-hidden border border-black">
               <img
-                key={playCount}
-                src={`${aboutPageContent.featuredImageAnimatedUrl}?play=${playCount}`}
-                alt={aboutPageContent.featuredImageAnimatedAlt}
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300`}
+                src={aboutPageContent.featuredImageUrl}
+                alt={aboutPageContent.featuredImageAlt}
+                className={`h-full w-full object-cover transition-opacity duration-300`}
                 loading="eager"
               />
-            ) : null}
+
+              {playCount > 0 ? (
+                <img
+                  key={playCount}
+                  src={`${aboutPageContent.featuredImageAnimatedUrl}?play=${playCount}`}
+                  alt={aboutPageContent.featuredImageAnimatedAlt}
+                  className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300`}
+                  loading="eager"
+                />
+              ) : null}
+            </div>
           </div>
         </div>
       </div>

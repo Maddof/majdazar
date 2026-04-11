@@ -60,18 +60,10 @@ function renderBlock(block: StrapiBlockNode, index: number): ReactNode {
                 ? 'h6'
                 : 'h3'
 
-    return (
-      <HeadingTag key={index} className="mt-6 text-lg font-bold first:mt-0">
-        {content}
-      </HeadingTag>
-    )
+    return <HeadingTag key={index}>{content}</HeadingTag>
   }
 
-  return (
-    <p key={index} className="leading-7">
-      {content}
-    </p>
-  )
+  return <p key={index}>{content}</p>
 }
 
 type StrapiRichTextProps = {

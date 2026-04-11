@@ -78,7 +78,7 @@ export const RICH_TEXT_COPY = {
 export const FOOTER_COPY = {
   name: 'Majd Azar',
   signatureAlt: 'Majd Azar signature',
-  builtWithLabel: 'Built with React, TypeScript, Tanstack and Vite',
+  builtWithLabel: 'Built with React, TypeScript, Tanstack, Strapi and Vite',
 } as const
 
 export type Tool = {
