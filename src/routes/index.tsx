@@ -44,6 +44,15 @@ const DEFAULT_TOOLS = {
     'The tools, platforms, and services I use to design, build, and ship products that solve real business problems.',
 }
 
+const DEFAULT_ABOUT = {
+  title: 'More about me',
+  subtitle: 'Beyond the stack',
+  description:
+    'I’m a developer who speaks the language of business. As a two-time founder, I understand the grit required to take an idea from 0 to 1. I work across the entire stack and across the boardroom to build tech that actually works for people.',
+  imageUrl: '/images/homepage/majd_sketch.jpg',
+  imageAlt: 'pencil sketch of Majd Azar',
+}
+
 function Home() {
   const { homepage, projects } = Route.useLoaderData()
   const [isSignatureDone, setIsSignatureDone] = useState(false)
@@ -65,11 +74,15 @@ function Home() {
     ...homepage?.tools,
   }
 
+  const aboutContent = {
+    ...DEFAULT_ABOUT,
+    ...homepage?.about,
+  }
+
   // console.log('🚀 ~ file: index.tsx:86 ~ Home ~ homepage:', homepage)
+  console.log('🚀, about content:', aboutContent)
 
-  console.log('🚀 ~ file: index.tsx:86 ~ Home ~ toolsContent:')
-
-  console.dir({ toolsContent }, { depth: null })
+  // console.log('🚀 ~ file: index.tsx:86 ~ Home ~ toolsContent:')
 
   useEffect(() => {
     const onScroll = () => {
@@ -178,9 +191,9 @@ function Home() {
           <div className="flex flex-col gap-8 sm:flex-row">
             <div className="sm:w-2/4">
               <SectionIntro
-                title="More about me"
-                subtitle="Beyond the stack"
-                description="I’m a developer who speaks the language of business. As a two-time founder, I understand the grit required to take an idea from 0 to 1. I work across the entire stack and across the boardroom to build tech that actually works for people."
+                title={aboutContent.title}
+                subtitle={aboutContent.subtitle}
+                description={aboutContent.description}
               />
               <Button
                 className="mt-6 w-full"
@@ -192,8 +205,8 @@ function Home() {
             </div>
             <div className="w-full sm:w-2/4">
               <img
-                src="/images/homepage/majd_sketch.jpg"
-                alt="More about me"
+                src={aboutContent.imageUrl}
+                alt={aboutContent.imageAlt || 'More about me'}
                 className="w-full rounded-lg"
                 loading="lazy"
               />

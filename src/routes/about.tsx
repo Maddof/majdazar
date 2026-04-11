@@ -9,6 +9,7 @@ export const Route = createFileRoute('/about')({
 
 function AboutPage() {
   const [playCount, setPlayCount] = useState(0)
+  const [disabledButton, setDisabledButton] = useState(false)
   const [gifVisible, setGifVisible] = useState(false)
 
   const navigate = useNavigate()
@@ -16,9 +17,11 @@ function AboutPage() {
   const handleAnimation = () => {
     setGifVisible(false)
     setPlayCount((count) => count + 1)
+    setDisabledButton(true)
 
     setTimeout(() => {
       setPlayCount(0)
+      setDisabledButton(false)
       navigate({ to: '/' })
     }, 2500) // Match the duration of the GIF animation
   }
@@ -49,7 +52,11 @@ function AboutPage() {
                 solutions that are not just technically solid, but useful in the
                 real world.
               </p>
-              <Button onClick={handleAnimation} className="hover:opacity-80">
+              <Button
+                onClick={handleAnimation}
+                className="hover:opacity-80"
+                disabled={disabledButton}
+              >
                 {playCount > 0 ? 'Returning...' : 'Return to homepage'}
               </Button>
             </div>

@@ -24,6 +24,23 @@ export interface HomeHero extends Struct.ComponentSchema {
   }
 }
 
+export interface HomeMoreAboutMe extends Struct.ComponentSchema {
+  collectionName: 'components_home_more_about_mes'
+  info: {
+    displayName: 'More about me'
+  }
+  attributes: {
+    description: Schema.Attribute.Text
+    image: Schema.Attribute.Media<'files' | 'images'>
+    readMoreLinkText: Schema.Attribute.String
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Beyond the stack'>
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'More about me'>
+  }
+}
+
 export interface HomeMyProjects extends Struct.ComponentSchema {
   collectionName: 'components_home_my_projects'
   info: {
@@ -91,6 +108,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'home.hero': HomeHero
+      'home.more-about-me': HomeMoreAboutMe
       'home.my-projects': HomeMyProjects
       'home.tools-of-the-trade': HomeToolsOfTheTrade
       'tool-category.tool': ToolCategoryTool

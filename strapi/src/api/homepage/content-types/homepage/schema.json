@@ -27,6 +27,11 @@
       "type": "component",
       "component": "home.tools-of-the-trade",
       "repeatable": false
+    },
+    "about": {
+      "type": "component",
+      "component": "home.more-about-me",
+      "repeatable": false
     }
   }
 }

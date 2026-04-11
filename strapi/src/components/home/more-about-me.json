@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_home_more_about_mes",
+  "info": {
+    "displayName": "More about me"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "More about me",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Beyond the stack"
+    },
+    "description": {
+      "type": "text"
+    },
+    "readMoreLinkText": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files",
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

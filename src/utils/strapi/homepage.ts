@@ -41,10 +41,19 @@ type ToolItemContent = {
   imageAlt?: string
 }
 
+type AboutContent = {
+  title: string
+  subtitle?: string
+  description?: string
+  imageUrl?: string
+  imageAlt?: string
+}
+
 type HomepageContent = {
   hero: HeroContent | null
   projects: ProjectsContent | null
   tools: ToolsContent | null
+  about: AboutContent | null
 }
 
 function normalizeHeroPayload(
@@ -76,6 +85,30 @@ function normalizeHeroPayload(
     portraitImageAlt: getMediaAlternativeText(hero.portraitImage),
     portraitBlinkImageUrl: getMediaUrl(hero.portraitBlinkImage),
     portraitBlinkImageAlt: getMediaAlternativeText(hero.portraitBlinkImage),
+  }
+}
+
+const normalizeAboutSectionPayload = (
+  attributes: Record<string, unknown>,
+): AboutContent | null => {
+  const aboutUnknown = attributes.about
+  if (!aboutUnknown || typeof aboutUnknown !== 'object') {
+    return null
+  }
+
+  const about = aboutUnknown as Record<string, unknown>
+  const title = typeof about.title === 'string' ? about.title : 'More about me'
+  const subtitle =
+    typeof about.subtitle === 'string' ? about.subtitle : 'Beyond the stack'
+  const description =
+    typeof about.description === 'string' ? about.description : undefined
+
+  return {
+    title,
+    subtitle,
+    description,
+    imageUrl: getMediaUrl(about.image),
+    imageAlt: getMediaAlternativeText(about.image),
   }
 }
 
@@ -224,6 +257,7 @@ function normalizeHomepagePayload(payload: unknown): HomepageContent | null {
     hero: normalizeHeroPayload(attributes),
     projects: normalizeProjectsPayload(attributes),
     tools: normalizeToolsSectionPayload(attributes),
+    about: normalizeAboutSectionPayload(attributes),
   }
 }
 
@@ -232,7 +266,8 @@ const fetchHomepageContent = createServerFn({ method: 'GET' }).handler(
     const HOMEPAGE_QUERY_STRING =
       'populate[hero][populate]=*' +
       '&populate[projects]=*' +
-      '&populate[tools][populate][toolCategory][populate][toolItem][populate]=image'
+      '&populate[tools][populate][toolCategory][populate][toolItem][populate]=image' +
+      '&populate[about][populate]=*'
 
     try {
       const res = await fetch(
@@ -253,6 +288,7 @@ const fetchHomepageContent = createServerFn({ method: 'GET' }).handler(
       // console.log(
       //   '🚀 ~ file: homepage.ts:173 ~ fetchHomepageContent ~ payload:',
       // )
+      // console.log(payload)
       // console.dir({ payload }, { depth: null })
 
       const normalizedContent = normalizeHomepagePayload(payload)
