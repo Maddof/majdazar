@@ -197,6 +197,12 @@ export const TOOLS_FALLBACK_CATEGORIES: ToolCategory[] = [
         description:
           "Collaborative interface design tool for creating, prototyping, and sharing designs.",
       },
+      {
+        name: "Coolify",
+        image: "images/assets/icons/coolify_logo.png",
+        description:
+          "One-click deployment platform that makes it easy to deploy and manage applications.",
+      },
     ],
   },
   {
