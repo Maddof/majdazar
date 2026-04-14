@@ -1,67 +1,76 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import { HOME_COPY, HOME_DEFAULT_CONTENT } from '~/content/copy'
-import SignatureM from '~/components/hero/Signature'
-import Typewriter from '~/components/hero/Typewriter'
-import { ProjectCards } from '~/components/project-cards/ProjectCards'
-import SectionIntro from '~/components/SectionIntro'
-import TechSection from '~/components/toolsofthetrade/ToolsOfTheTrade'
-import { Button } from '~/components/ui/button'
-import { fetchHomepageContent } from '~/utils/strapi/homepage'
-import { fetchProjects } from '~/utils/strapi/projects'
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { HOME_COPY, HOME_DEFAULT_CONTENT } from "~/content/copy";
+import SignatureM from "~/components/hero/Signature";
+import Typewriter from "~/components/hero/Typewriter";
+import { ProjectCards } from "~/components/project-cards/ProjectCards";
+import SectionIntro from "~/components/SectionIntro";
+import TechSection from "~/components/toolsofthetrade/ToolsOfTheTrade";
+import { Button } from "~/components/ui/button";
+import { fetchHomepageContent } from "~/utils/strapi/homepage";
+import { fetchProjects } from "~/utils/strapi/projects";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   loader: async () => {
     const [homepage, projects] = await Promise.all([
       fetchHomepageContent(),
       fetchProjects(),
-    ])
+    ]);
 
-    return { homepage, projects }
+    return { homepage, projects };
   },
   component: Home,
-})
+});
 
 function Home() {
-  const { homepage, projects } = Route.useLoaderData()
-  const [isSignatureDone, setIsSignatureDone] = useState(false)
-  const [hasStartedScroll, setHasStartedScroll] = useState(false)
-  const [isBlinkActive, setIsBlinkActive] = useState(false)
+  const { homepage, projects } = Route.useLoaderData();
+  const [isSignatureDone, setIsSignatureDone] = useState(false);
+  const [hasStartedScroll, setHasStartedScroll] = useState(false);
+  const [isBlinkActive, setIsBlinkActive] = useState(false);
+  const blinkTimeoutRef = useRef<number | null>(null);
 
   const heroContent = {
     ...HOME_DEFAULT_CONTENT.hero,
     ...homepage?.hero,
-  }
+  };
 
   const projectsContent = {
     ...HOME_DEFAULT_CONTENT.projects,
     ...homepage?.projects,
-  }
+  };
 
   const toolsContent = {
     ...HOME_DEFAULT_CONTENT.tools,
     ...homepage?.tools,
-  }
+  };
 
   const aboutContent = {
     ...HOME_DEFAULT_CONTENT.about,
     ...homepage?.about,
-  }
+  };
 
   useEffect(() => {
     const onScroll = () => {
       if (window.scrollY > 100) {
-        setHasStartedScroll(true)
+        setHasStartedScroll(true);
       }
-    }
+    };
 
-    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', onScroll)
-    }
-  }, [])
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (blinkTimeoutRef.current !== null) {
+        window.clearTimeout(blinkTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -96,7 +105,7 @@ function Home() {
                   `${heroContent.typedName} Blinking`
                 }
                 className={`pointer-events-none absolute inset-0 z-10 h-full w-auto object-cover transition-opacity duration-250 [clip-path:inset(0_0_66%_0)] peer-hover:opacity-100 ${
-                  isBlinkActive ? 'opacity-100' : 'opacity-0'
+                  isBlinkActive ? "opacity-100" : "opacity-0"
                 }`}
               />
             </div>
@@ -122,7 +131,7 @@ function Home() {
               animate={
                 isSignatureDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }
               }
-              transition={{ duration: 0.35, delay: 1, ease: 'easeOut' }}
+              transition={{ duration: 0.35, delay: 1, ease: "easeOut" }}
             >
               {heroContent.title}
             </motion.p>
@@ -133,7 +142,19 @@ function Home() {
               animate={
                 isSignatureDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }
               }
-              transition={{ duration: 0.4, delay: 1.4, ease: 'easeOut' }}
+              transition={{ duration: 0.4, delay: 1.4, ease: "easeOut" }}
+              onAnimationComplete={() => {
+                if (isSignatureDone) {
+                  setIsBlinkActive(true);
+                  if (blinkTimeoutRef.current !== null) {
+                    window.clearTimeout(blinkTimeoutRef.current);
+                  }
+                  blinkTimeoutRef.current = window.setTimeout(() => {
+                    setIsBlinkActive(false);
+                    blinkTimeoutRef.current = null;
+                  }, 1500);
+                }
+              }}
             >
               {heroContent.summary || heroContent.location}
             </motion.p>
@@ -180,5 +201,5 @@ function Home() {
         </div>
       </section>
     </>
-  )
+  );
 }
