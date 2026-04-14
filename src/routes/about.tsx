@@ -1,48 +1,48 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
-import { useState } from 'react'
-import SectionIntro from '~/components/SectionIntro'
-import { StrapiRichText } from '~/components/rich-text/StrapiRichText'
-import { Button } from '~/components/ui/button'
-import { ABOUT_PAGE_COPY, ABOUT_PAGE_DEFAULT_CONTENT } from '~/content/copy'
-import { fetchAboutContent } from '~/utils/strapi/about'
-import type { AboutContent } from '~/utils/strapi/about'
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import SectionIntro from "~/components/SectionIntro";
+import { StrapiRichText } from "~/components/rich-text/StrapiRichText";
+import { Button } from "~/components/ui/button";
+import { ABOUT_PAGE_COPY, ABOUT_PAGE_DEFAULT_CONTENT } from "~/content/copy";
+import { fetchAboutContent } from "~/utils/strapi/about";
+import type { AboutContent } from "~/utils/strapi/about";
 
-export const Route = createFileRoute('/about')({
+export const Route = createFileRoute("/about")({
   loader: async () => {
-    const aboutContent = await fetchAboutContent()
-    return { aboutContent }
+    const aboutContent = await fetchAboutContent();
+    return { aboutContent };
   },
   component: AboutPage,
-})
+});
 
-const DEFAULT_ABOUT_CONTENT: AboutContent = ABOUT_PAGE_DEFAULT_CONTENT
+const DEFAULT_ABOUT_CONTENT: AboutContent = ABOUT_PAGE_DEFAULT_CONTENT;
 
 function AboutPage() {
-  const [playCount, setPlayCount] = useState(0)
-  const [disabledButton, setDisabledButton] = useState(false)
+  const [playCount, setPlayCount] = useState(0);
+  const [disabledButton, setDisabledButton] = useState(false);
 
-  const { aboutContent } = Route.useLoaderData()
+  const { aboutContent } = Route.useLoaderData();
 
   const aboutPageContent = {
     ...DEFAULT_ABOUT_CONTENT,
     ...aboutContent,
-  }
+  };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleAnimation = () => {
-    setPlayCount((count) => count + 1)
-    setDisabledButton(true)
+    setPlayCount((count) => count + 1);
+    setDisabledButton(true);
 
     setTimeout(() => {
-      setPlayCount(0)
-      setDisabledButton(false)
-      navigate({ to: '/' })
-    }, 2500) // Match the duration of the GIF animation
-  }
+      setPlayCount(0);
+      setDisabledButton(false);
+      navigate({ to: "/" });
+    }, 2500); // Match the duration of the GIF animation
+  };
 
   return (
-    <section className="py-16 sm:py-24">
+    <section className="">
       <div className="container">
         <div className="grid gap-10 sm:grid-cols-2 sm:items-start">
           <div>
@@ -92,5 +92,5 @@ function AboutPage() {
         </div>
       </div>
     </section>
-  )
+  );
 }
