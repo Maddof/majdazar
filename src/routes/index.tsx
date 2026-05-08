@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { HOME_COPY, HOME_DEFAULT_CONTENT } from "~/content/copy";
-import SignatureM from "~/components/hero/Signature";
+import SignatureHero from "~/components/hero/Signature";
+import SignatureHeader from "~/components/header/Signature";
 import Typewriter from "~/components/hero/Typewriter";
 import { ProjectCards } from "~/components/project-cards/ProjectCards";
 import SectionIntro from "~/components/SectionIntro";
@@ -23,12 +24,80 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
+function HomeLoading() {
+  return (
+    <motion.div className="fixed inset-0 z-50 flex overflow-hidden">
+      {/* Left curtain */}
+      <motion.div
+        className="bg-primary h-full w-1/2"
+        initial={{ x: 0 }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+      />
+
+      {/* Right curtain */}
+      <motion.div
+        className="bg-primary h-full w-1/2"
+        initial={{ x: 0 }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+      />
+
+      {/* Center content */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 flex items-center justify-center gap-4"
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.35 }}
+      >
+        <motion.img
+          src="/images/assets/signatur_majd-azar.svg"
+          alt="Majd Azar Signature"
+          className="w-40"
+          exit={{ opacity: 0, scale: 0.2 }}
+          transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+        />
+      </motion.div>
+    </motion.div>
+  );
+}
+
 function Home() {
   const { homepage, projects } = Route.useLoaderData();
   const [isSignatureDone, setIsSignatureDone] = useState(false);
   const [hasStartedScroll, setHasStartedScroll] = useState(false);
   const [isBlinkActive, setIsBlinkActive] = useState(false);
   const blinkTimeoutRef = useRef<number | null>(null);
+
+  const [showIntroLoader, setShowIntroLoader] = useState(true);
+  const [isLoaderDone, setIsLoaderDone] = useState(false);
+
+  // Ensure the intro loader is shown for at least 2 seconds, even if the page loads faster than that, to allow the animation to be appreciated and avoid a flash of content if loading is very fast.
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setShowIntroLoader(false);
+    }, 2000);
+
+    return () => window.clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    if (showIntroLoader) {
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.touchAction = "";
+    };
+  }, [showIntroLoader]);
 
   const heroContent = {
     ...HOME_DEFAULT_CONTENT.hero,
@@ -52,9 +121,7 @@ function Home() {
 
   useEffect(() => {
     const onScroll = () => {
-      if (window.scrollY > 100) {
-        setHasStartedScroll(true);
-      }
+      setHasStartedScroll(window.scrollY > 110);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -74,9 +141,18 @@ function Home() {
 
   return (
     <>
+      <AnimatePresence
+        onExitComplete={() => {
+          setIsLoaderDone(true);
+        }}
+      >
+        {showIntroLoader && <HomeLoading />}
+      </AnimatePresence>
+
       <section
+        id="hero"
         data-hero-section
-        className="relative flex min-h-[55svh] w-full flex-col gap-12 overflow-hidden bg-cover text-white sm:min-h-svh"
+        className="relative flex min-h-[95svh] w-full flex-col gap-12 overflow-hidden bg-cover text-white sm:min-h-svh"
         style={{
           backgroundImage: `url('${heroContent.backgroundImageUrl}')`,
         }}
@@ -111,11 +187,12 @@ function Home() {
             </div>
           </div>
           {/* Overlay absolute */}
-          <div className="from-primary/65 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-r" />
+          <div className="from-primary/70 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-r" />
 
-          <div className="from-primary/40 sm:from-primary/10 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-tr" />
+          <div className="from-primary/95 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-tr" />
           <div className="z-20 flex flex-col items-start gap-2">
-            <SignatureM
+            <SignatureHero
+              shouldStart={isLoaderDone}
               onComplete={() => setIsSignatureDone(true)}
               shouldAnimateOut={hasStartedScroll}
             />
@@ -172,7 +249,7 @@ function Home() {
         </div>
       </section>
       <TechSection toolsContent={toolsContent} />
-      <section id="more-about-me " className="overflow-hidden">
+      <section id="more-about-me" className="overflow-hidden">
         <div className="container">
           <div className="flex flex-col gap-8 sm:flex-row">
             <div className="sm:w-2/4">
