@@ -152,7 +152,7 @@ function Home() {
       <section
         id="hero"
         data-hero-section
-        className="relative flex min-h-[95svh] w-full flex-col gap-12 overflow-hidden bg-cover text-white sm:min-h-svh"
+        className="relative flex min-h-[90svh] w-full flex-col gap-12 overflow-hidden bg-cover text-white sm:min-h-svh"
         style={{
           backgroundImage: `url('${heroContent.backgroundImageUrl}')`,
         }}
@@ -180,7 +180,7 @@ function Home() {
                   heroContent.portraitBlinkImageAlt ||
                   `${heroContent.typedName} Blinking`
                 }
-                className={`pointer-events-none absolute inset-0 z-10 h-full w-auto object-cover transition-opacity duration-250 [clip-path:inset(0_0_66%_0)] peer-hover:opacity-100 ${
+                className={`pointer-events-none absolute inset-0 h-full w-auto object-cover transition-opacity duration-250 [clip-path:inset(0_0_66%_0)] peer-hover:opacity-100 ${
                   isBlinkActive ? "opacity-100" : "opacity-0"
                 }`}
               />
@@ -190,6 +190,8 @@ function Home() {
           <div className="from-primary/70 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-r" />
 
           <div className="from-primary/95 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-tr" />
+          <div className="from-primary/30 to-primary/0 pointer-events-none absolute inset-0 z-20 bg-linear-to-tr" />
+
           <div className="z-20 flex flex-col items-start gap-2">
             <SignatureHero
               shouldStart={isLoaderDone}
