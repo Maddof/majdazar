@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { HOME_COPY, HOME_DEFAULT_CONTENT } from "~/content/copy";
@@ -8,7 +8,7 @@ import Typewriter from "~/components/hero/Typewriter";
 import { ProjectCards } from "~/components/project-cards/ProjectCards";
 import SectionIntro from "~/components/SectionIntro";
 import TechSection from "~/components/toolsofthetrade/ToolsOfTheTrade";
-import { Button } from "~/components/ui/button";
+import { AboutSection } from "~/components/about/AboutSection";
 import { fetchHomepageContent } from "~/utils/strapi/homepage";
 import { fetchProjects } from "~/utils/strapi/projects";
 
@@ -251,34 +251,7 @@ function Home() {
         </div>
       </section>
       <TechSection toolsContent={toolsContent} />
-      <section id="more-about-me" className="overflow-hidden">
-        <div className="container">
-          <div className="flex flex-col gap-8 sm:flex-row">
-            <div className="sm:w-2/4">
-              <SectionIntro
-                title={aboutContent.title}
-                subtitle={aboutContent.subtitle}
-                description={aboutContent.description}
-              />
-              <Button
-                className="mt-6 w-full"
-                render={<Link to="/about" />}
-                nativeButton={false}
-              >
-                {HOME_COPY.readMoreCta}
-              </Button>
-            </div>
-            <div className="w-full sm:w-2/4">
-              <img
-                src={aboutContent.imageUrl}
-                alt={aboutContent.imageAlt || HOME_COPY.aboutImageFallbackAlt}
-                className="w-full rounded-lg"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutSection aboutContent={aboutContent} />
     </>
   );
 }

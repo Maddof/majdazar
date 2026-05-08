@@ -1,5 +1,5 @@
-import { motion, type Variants } from 'framer-motion'
-import { FOOTER_COPY } from '~/content/copy'
+import { motion, type Variants } from "framer-motion";
+import { FOOTER_COPY } from "~/content/copy";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -9,20 +9,20 @@ const containerVariants: Variants = {
       delayChildren: 0.1,
     },
   },
-}
+};
 
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: 'easeOut' },
+    transition: { duration: 0.55, ease: "easeOut" },
   },
-}
+};
 
 export function Footer() {
   return (
-    <footer className="border-muted/50 bg-primary mt-16 border-t py-8">
+    <footer className="border-muted/50 bg-primary border-t py-8">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -47,5 +47,5 @@ export function Footer() {
         </motion.p>
       </motion.div>
     </footer>
-  )
+  );
 }
