@@ -1,6 +1,4 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import SignatureM from "~/components/header/Signature";
 
@@ -11,22 +9,28 @@ export function Header() {
 
   useEffect(() => {
     const updateHeaderState = () => {
-      const heroSection = document.querySelector<HTMLElement>(
-        "[data-hero-section]",
-      );
-      const triggerSection = document.querySelector<HTMLElement>(
-        "[data-below-hero-trigger]",
-      );
-
       setHasStartedScroll(window.scrollY > 100);
 
-      if (!heroSection || !triggerSection) {
-        setUseLightColor(false);
-        return;
-      }
+      const lightSections = document.querySelectorAll<HTMLElement>(
+        "[data-light-header]",
+      );
 
-      const triggerTop = triggerSection.getBoundingClientRect().top;
-      setUseLightColor(triggerTop > 72);
+      const headerTriggerY = 72;
+
+      let shouldUseLight = false;
+
+      lightSections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+
+        const isOverlapping =
+          rect.top <= headerTriggerY && rect.bottom >= headerTriggerY;
+
+        if (isOverlapping) {
+          shouldUseLight = true;
+        }
+      });
+
+      setUseLightColor(shouldUseLight);
     };
 
     const raf = requestAnimationFrame(updateHeaderState);

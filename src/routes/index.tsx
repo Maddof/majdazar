@@ -9,6 +9,7 @@ import { ProjectCards } from "~/components/project-cards/ProjectCards";
 import SectionIntro from "~/components/SectionIntro";
 import TechSection from "~/components/toolsofthetrade/ToolsOfTheTrade";
 import { AboutSection } from "~/components/about/AboutSection";
+import { HomeLoading } from "~/components/home/HomeLoading";
 import { fetchHomepageContent } from "~/utils/strapi/homepage";
 import { fetchProjects } from "~/utils/strapi/projects";
 
@@ -23,47 +24,6 @@ export const Route = createFileRoute("/")({
   },
   component: Home,
 });
-
-function HomeLoading() {
-  return (
-    <motion.div className="fixed inset-0 z-50 flex overflow-hidden">
-      {/* Left curtain */}
-      <motion.div
-        className="bg-primary h-full w-1/2"
-        initial={{ x: 0 }}
-        animate={{ x: 0 }}
-        exit={{ x: "-100%" }}
-        transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-      />
-
-      {/* Right curtain */}
-      <motion.div
-        className="bg-primary h-full w-1/2"
-        initial={{ x: 0 }}
-        animate={{ x: 0 }}
-        exit={{ x: "100%" }}
-        transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-      />
-
-      {/* Center content */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center gap-4"
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.35 }}
-      >
-        <motion.img
-          src="/images/assets/signatur_majd-azar.svg"
-          alt="Majd Azar Signature"
-          className="w-40"
-          exit={{ opacity: 0, scale: 0.2 }}
-          transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-        />
-      </motion.div>
-    </motion.div>
-  );
-}
 
 function Home() {
   const { homepage, projects } = Route.useLoaderData();
@@ -139,6 +99,15 @@ function Home() {
     };
   }, []);
 
+  const itemVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
   return (
     <>
       <AnimatePresence
@@ -151,15 +120,33 @@ function Home() {
 
       <section
         id="hero"
-        data-hero-section
-        className="relative flex min-h-[90svh] w-full flex-col gap-12 overflow-hidden bg-cover text-white sm:min-h-svh"
+        data-light-header
+        className="relative flex min-h-[90svh] w-full flex-col gap-12 overflow-hidden bg-cover p-0 text-white sm:min-h-svh"
         style={{
           backgroundImage: `url('${heroContent.backgroundImageUrl}')`,
         }}
       >
+        <motion.span
+          initial="hidden"
+          animate={isLoaderDone ? "visible" : "hidden"}
+          variants={itemVariants}
+          className="absolute top-8 z-30 text-[550%] leading-none font-black text-white/75 uppercase [writing-mode:vertical-lr] sm:text-[800%] md:text-[900%]"
+        >
+          FullStack
+        </motion.span>
         <div className="container flex h-full flex-1 items-end sm:items-center">
           <div className="group absolute right-0 bottom-0 z-20 h-[95%] sm:right-0 md:right-0 lg:right-28 xl:right-48">
-            <div className="relative h-full">
+            <motion.div
+              className="relative h-full"
+              id="portrait-container"
+              initial={{ x: -10 }}
+              animate={isLoaderDone ? { x: -10 } : { x: -120 }}
+              transition={{
+                // delay: 0.5,
+                duration: 0.6,
+                ease: "easeOut",
+              }}
+            >
               {/* Base image */}
               <img
                 src={heroContent.portraitImageUrl}
@@ -184,15 +171,9 @@ function Home() {
                   isBlinkActive ? "opacity-100" : "opacity-0"
                 }`}
               />
-            </div>
+            </motion.div>
           </div>
-          {/* Overlay absolute */}
-          <div className="from-primary/70 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-r" />
-
-          <div className="from-primary/95 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-tr" />
-          <div className="from-primary/30 to-primary/0 pointer-events-none absolute inset-0 z-20 bg-linear-to-tr" />
-
-          <div className="z-20 flex flex-col items-start gap-2">
+          <div className="z-30 flex flex-col items-start gap-2 pb-10 pl-20">
             <SignatureHero
               shouldStart={isLoaderDone}
               onComplete={() => setIsSignatureDone(true)}
@@ -201,27 +182,6 @@ function Home() {
             <Typewriter
               start={isSignatureDone}
               text={heroContent.typedName}
-              // className="text-[200%] font-bold sm:text-[250%]"
-            />
-
-            <motion.p
-              className="text-[125%] sm:text-[150%]"
-              initial={{ opacity: 0, y: 8 }}
-              animate={
-                isSignatureDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }
-              }
-              transition={{ duration: 0.35, delay: 1, ease: "easeOut" }}
-            >
-              {heroContent.title}
-            </motion.p>
-
-            <motion.p
-              className="max-w-xl text-[100%] leading-7 sm:text-[120%]"
-              initial={{ opacity: 0, y: 4 }}
-              animate={
-                isSignatureDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }
-              }
-              transition={{ duration: 0.4, delay: 1.4, ease: "easeOut" }}
               onAnimationComplete={() => {
                 if (isSignatureDone) {
                   setIsBlinkActive(true);
@@ -234,13 +194,16 @@ function Home() {
                   }, 1500);
                 }
               }}
-            >
-              {heroContent.summary || heroContent.location}
-            </motion.p>
+            />
           </div>
+          {/* Overlay absolute */}
+          <div className="from-primary/70 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-r" />
+
+          <div className="from-primary/95 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-tr" />
+          <div className="from-primary/30 to-primary/0 pointer-events-none absolute inset-0 z-20 bg-linear-to-tr" />
         </div>
       </section>
-      <section data-below-hero-trigger className="overflow-hidden">
+      <section className="overflow-hidden">
         <div className="container">
           <SectionIntro
             title={projectsContent.title}

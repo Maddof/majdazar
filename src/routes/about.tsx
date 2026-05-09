@@ -57,8 +57,11 @@ function AboutPage() {
                 blocks={aboutPageContent.content}
                 emptyText={ABOUT_PAGE_COPY.richTextEmptyLabel}
               />
+              <Link to="/" className="underline underline-offset-4">
+                {aboutPageContent.returnHomeLinkText}
+              </Link>
 
-              <Button
+              {/* <Button
                 onClick={handleAnimation}
                 className="hover:opacity-80"
                 disabled={disabledButton}
@@ -66,7 +69,7 @@ function AboutPage() {
                 {playCount > 0
                   ? ABOUT_PAGE_COPY.returningLabel
                   : aboutPageContent.returnHomeLinkText}
-              </Button>
+              </Button> */}
             </div>
           </div>
           <div className="sticky top-20 self-start">
@@ -78,7 +81,7 @@ function AboutPage() {
                 loading="eager"
               />
 
-              {playCount > 0 ? (
+              {/* {playCount > 0 ? (
                 <img
                   key={playCount}
                   src={`${aboutPageContent.featuredImageAnimatedUrl}?play=${playCount}`}
@@ -86,7 +89,7 @@ function AboutPage() {
                   className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300`}
                   loading="eager"
                 />
-              ) : null}
+              ) : null} */}
             </div>
           </div>
         </div>
