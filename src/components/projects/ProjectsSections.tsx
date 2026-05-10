@@ -29,24 +29,6 @@ export function ProjectsSections({
   description: string;
   projects: ProjectContent[];
 }) {
-  // const projects = [
-  //   {
-  //     title: "Personal",
-  //     description: "Showcasing my work.",
-  //     image: "/images/homepage/portfolio-site_screenshot_3x4.webp",
-  //   },
-  //   {
-  //     title: "Smokify",
-  //     description: "E-commerce platform for nicotine products.",
-  //     image: "/images/homepage/smokify_screenshot_3x4.webp",
-  //   },
-  //   {
-  //     title: "Vali",
-  //     description: "E-commerce for men's shaving.",
-  //     image: "/images/homepage/vali_screenshot_3x4.webp",
-  //   },
-  // ];
-
   const closeCaseStudyButtonRef = useRef<HTMLButtonElement | null>(null);
 
   return (

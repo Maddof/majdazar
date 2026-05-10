@@ -51,6 +51,7 @@ type AboutContent = {
   description?: string;
   imageUrl?: string;
   imageAlt?: string;
+  readMoreLinkText?: string;
 };
 
 type HomepageContent = {
@@ -107,10 +108,16 @@ const normalizeAboutSectionPayload = (
   const description =
     typeof about.description === "string" ? about.description : undefined;
 
+  const readMoreLinkText =
+    typeof about.readMoreLinkText === "string"
+      ? about.readMoreLinkText
+      : undefined;
+
   return {
     title,
     subtitle,
     description,
+    readMoreLinkText,
     imageUrl: getMediaUrl(about.image),
     imageAlt: getMediaAlternativeText(about.image),
   };
@@ -294,8 +301,8 @@ const fetchHomepageContent = createServerFn({ method: "GET" }).handler(
       // console.log(
       //   '🚀 ~ file: homepage.ts:173 ~ fetchHomepageContent ~ payload:',
       // )
-      // console.log(payload)
-      // console.dir({ payload }, { depth: null })
+      // console.log(payload);
+      // console.dir({ payload }, { depth: null });
 
       const normalizedContent = normalizeHomepagePayload(payload);
 
