@@ -19,6 +19,7 @@ import type { ProjectContent } from "~/utils/strapi/projects";
 import { StrapiRichText } from "../rich-text/StrapiRichText";
 import { Button } from "../ui/button";
 import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function ProjectsSections({
   title,
@@ -30,9 +31,23 @@ export function ProjectsSections({
   projects: ProjectContent[];
 }) {
   const closeCaseStudyButtonRef = useRef<HTMLButtonElement | null>(null);
+  const projectsSectionRef = useRef<HTMLElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: projectsSectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const projectsY = useTransform(scrollYProgress, [0, 1], ["-100vh", "100vh"]);
+
+  const projectsOpacity = useTransform(scrollYProgress, [0.75, 0.9], [1, 0]);
 
   return (
-    <section className="relative overflow-hidden" id="projects">
+    <section
+      ref={projectsSectionRef}
+      className="relative overflow-hidden"
+      id="projects"
+    >
       <div className="custom-shape-divider-top pointer-events-none">
         <svg
           data-name="Layer 1"
@@ -46,9 +61,12 @@ export function ProjectsSections({
           ></path>
         </svg>
       </div>
-      <h2 className="text-primary absolute top-1/2 z-30 -translate-y-1/2 text-[550%] leading-none font-black uppercase [writing-mode:vertical-lr] sm:text-[800%] md:text-[900%]">
+      <motion.h2
+        style={{ y: projectsY, opacity: projectsOpacity }}
+        className="text-primary absolute top-30 z-30 text-[550%] leading-none font-black uppercase [writing-mode:vertical-lr] sm:text-[800%] md:text-[900%]"
+      >
         {title}
-      </h2>
+      </motion.h2>
 
       <div className="container">
         <div className="flex gap-4 pl-22 sm:pl-28 md:ml-2 md:pl-30 2xl:pl-0">

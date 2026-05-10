@@ -1,5 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { HOME_COPY, HOME_DEFAULT_CONTENT } from "~/content/copy";
 import SignatureHero from "~/components/hero/Signature";
@@ -34,6 +39,15 @@ function Home() {
 
   const [showIntroLoader, setShowIntroLoader] = useState(true);
   const [isLoaderDone, setIsLoaderDone] = useState(false);
+
+  const heroSectionRef = useRef<HTMLElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroSectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const fullStackY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
 
   // Ensure the intro loader is shown for at least 2 seconds, even if the page loads faster than that, to allow the animation to be appreciated and avoid a flash of content if loading is very fast.
   useEffect(() => {
@@ -119,6 +133,7 @@ function Home() {
       </AnimatePresence>
 
       <section
+        ref={heroSectionRef}
         id="hero"
         data-light-header
         className="relative flex min-h-[95svh] w-full flex-col gap-12 overflow-hidden bg-cover p-0 text-white sm:min-h-svh"
@@ -131,6 +146,7 @@ function Home() {
           animate={isLoaderDone ? "visible" : "hidden"}
           variants={itemVariants}
           className="absolute top-1/2 z-30 -translate-y-1/2 text-[550%] leading-none font-black text-white/75 uppercase [writing-mode:vertical-lr] sm:text-[800%] md:text-[900%]"
+          style={{ y: fullStackY }}
         >
           FullStack
         </motion.span>

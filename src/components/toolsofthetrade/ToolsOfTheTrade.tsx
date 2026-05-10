@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { useMemo, useRef, useState } from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { PlusIcon } from "lucide-react";
 import {
   TOOLS_COPY,
@@ -101,15 +101,42 @@ export default function TechSection({
     }));
   }, [toolsContent.toolCategory]);
 
+  const toolsSectionRef = useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: toolsSectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const toolsX = useTransform(scrollYProgress, [0, 0.35], ["-30vw", "0vw"]);
+
   return (
     <>
-      <section className="relative overflow-hidden" id="tools-of-the-trade">
+      <section
+        ref={toolsSectionRef}
+        className="relative overflow-hidden pt-0"
+        id="tools-of-the-trade"
+      >
+        <div
+          aria-hidden="true"
+          className="bg-secondary absolute inset-x-0 top-0 -z-10 h-1000 w-full [clip-path:polygon(0_35%,100%_0,100%_100%,0_100%)]"
+        />
         <div className="container">
-          <SectionIntro
-            className="mb-24"
-            title={toolsContent.title}
-            description={toolsContent.description}
-          />
+          <div className="mb-18">
+            <motion.h2
+              className="text-primary relative mb-6 text-[550%] leading-none font-black uppercase sm:text-[800%] md:text-[900%]"
+              style={{ x: toolsX }}
+            >
+              {toolsContent.title}
+            </motion.h2>
+            <div
+              aria-hidden="true"
+              // className="bg-secondary/80 absolute top-1/2 left-[0.5ch] -z-10 h-48 w-1/2 -translate-x-1/2 -translate-y-1/2"
+              className="from-secondary to-background absolute top-0 left-[calc(50%-50vw)] -z-10 h-48 w-[calc(50vw)] bg-linear-to-r"
+            />
+            {toolsContent.description && (
+              <p className="isolate max-w-2xl">{toolsContent.description}</p>
+            )}
+          </div>
 
           {resolvedToolCategories
             .filter((c) => !c.honorableMention)
@@ -156,9 +183,33 @@ export default function TechSection({
             ))}
         </div>
       </section>
-      <section id="honorable-mentions">
+      <section
+        id="honorable-mentions"
+        className="relative isolate overflow-hidden"
+      >
+        {/* <div
+          aria-hidden="true"
+          className="bg-secondary absolute inset-x-0 top-0 -z-10 h-1200 w-full [clip-path:polygon(0_35%,100%_0,100%_100%,0_100%)]"
+        /> */}
         <div className="container">
-          <SectionIntro
+          <h2 className="text-primary relative mb-6 text-[550%] leading-none font-black uppercase sm:text-[800%] md:text-[900%]">
+            {" "}
+            MISC.
+          </h2>
+
+          <div
+            aria-hidden="true"
+            // className="bg-secondary/80 absolute top-1/2 left-[0.5ch] -z-10 h-48 w-1/2 -translate-x-1/2 -translate-y-1/2"
+            className="bg-secondary absolute top-0 left-[calc(50%-50vw)] -z-10 h-48 w-full"
+          />
+
+          <p className="isolate max-w-2xl">
+            Services and tech I’ve worked with across professional roles,
+            studies and personal projects. Not an exhaustive list, but a
+            snapshot of the wider ecosystem I’m familiar with.
+          </p>
+
+          {/* <SectionIntro
             title={
               toolsContent.titleHonorable || TOOLS_COPY.honorableMentionsTitle
             }
@@ -166,7 +217,7 @@ export default function TechSection({
               toolsContent.descriptionHonorable ||
               TOOLS_COPY.honorableMentionsDescription
             }
-          />
+          /> */}
           <ul className="my-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
             {resolvedToolCategories
               .filter((c) => c.honorableMention)

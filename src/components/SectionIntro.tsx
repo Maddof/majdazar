@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react";
 
 type SectionIntroProps = {
-  title: ReactNode
-  subtitle?: ReactNode
-  description?: ReactNode
-  className?: string
-  showBackgroundAccent?: boolean
-}
+  title: ReactNode;
+  subtitle?: ReactNode;
+  description?: ReactNode;
+  className?: string;
+  showBackgroundAccent?: boolean;
+};
 
 export default function SectionIntro({
   title,
@@ -17,7 +17,7 @@ export default function SectionIntro({
 }: SectionIntroProps) {
   return (
     <div className={className}>
-      <h2 className="relative mb-4">
+      <h2 className="text-primary relative mb-4 text-[550%] leading-none font-black uppercase sm:text-[800%] md:text-[900%]">
         {title}
         {showBackgroundAccent ? (
           <div
@@ -30,5 +30,5 @@ export default function SectionIntro({
       {subtitle && <h3 className="mb-4">{subtitle}</h3>}
       {description && <p className="isolate max-w-2xl">{description}</p>}
     </div>
-  )
+  );
 }
