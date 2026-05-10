@@ -130,11 +130,11 @@ function Home() {
           initial="hidden"
           animate={isLoaderDone ? "visible" : "hidden"}
           variants={itemVariants}
-          className="absolute top-8 z-30 text-[550%] leading-none font-black text-white/75 uppercase [writing-mode:vertical-lr] sm:text-[800%] md:text-[900%]"
+          className="absolute top-1/2 z-30 -translate-y-1/2 text-[550%] leading-none font-black text-white/75 uppercase [writing-mode:vertical-lr] sm:text-[800%] md:text-[900%]"
         >
           FullStack
         </motion.span>
-        <div className="container flex h-full flex-1 items-end sm:items-center">
+        <div className="container flex h-full flex-1 items-end lg:items-center">
           <div className="group absolute right-0 bottom-0 z-20 h-[95%] sm:right-0 md:right-0 lg:right-28 xl:right-48">
             <motion.div
               className="relative h-full"
@@ -173,7 +173,7 @@ function Home() {
               />
             </motion.div>
           </div>
-          <div className="z-30 flex w-full flex-col items-center gap-2 pb-10 sm:w-fit sm:pl-24">
+          <div className="z-30 mb-6 flex w-full flex-col items-center md:ml-32 lg:w-fit lg:items-start">
             <SignatureHero
               shouldStart={isLoaderDone}
               onComplete={() => setIsSignatureDone(true)}
@@ -182,6 +182,7 @@ function Home() {
             <Typewriter
               start={isSignatureDone}
               text={heroContent.typedName}
+              className="tracking-wide md:text-5xl lg:text-6xl"
               onAnimationComplete={() => {
                 if (isSignatureDone) {
                   setIsBlinkActive(true);

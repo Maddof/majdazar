@@ -12,7 +12,7 @@ export default function SignatureM({
     <motion.svg
       viewBox="0 0 500 300"
       xmlns="http://www.w3.org/2000/svg"
-      className="h-auto w-60 sm:w-120"
+      className="h-auto w-60 sm:w-80 md:w-100 lg:w-120"
     >
       <motion.path
         d={strokePath}
