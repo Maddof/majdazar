@@ -1,8 +1,6 @@
 import { useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, useInView } from "framer-motion";
-import { HOME_COPY } from "~/content/copy";
-import SectionIntro from "~/components/SectionIntro";
 import { Button } from "~/components/ui/button";
 
 type AboutContent = {

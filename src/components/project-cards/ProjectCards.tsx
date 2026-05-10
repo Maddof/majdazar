@@ -1,4 +1,4 @@
-import { Button } from '../ui/button'
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogClose,
@@ -8,29 +8,29 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../ui/dialog'
+} from "../ui/dialog";
 
 // Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/effect-cards'
+import "swiper/css";
+import "swiper/css/effect-cards";
 
-import './styles.css'
-import { useRef } from 'react'
-import { PROJECT_CARDS_COPY } from '~/content/copy'
-import { StrapiRichText } from '../rich-text/StrapiRichText'
-import type { ProjectContent, StrapiBlockNode } from '~/utils/strapi/projects'
+import "./styles.css";
+import { useRef } from "react";
+import { PROJECT_CARDS_COPY } from "~/content/copy";
+import { StrapiRichText } from "../rich-text/StrapiRichText";
+import type { ProjectContent, StrapiBlockNode } from "~/utils/strapi/projects";
 
 // import required modules
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { EffectCards } from 'swiper/modules'
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCards } from "swiper/modules";
 
 type PortfolioCardProps = {
-  id: string
-  title: string
-  imageUrl: string
-  liveLink?: string
-  description: StrapiBlockNode[]
-}
+  id: string;
+  title: string;
+  imageUrl: string;
+  liveLink?: string;
+  description: StrapiBlockNode[];
+};
 
 function PortfolioCard({
   id,
@@ -39,7 +39,7 @@ function PortfolioCard({
   liveLink,
   description,
 }: PortfolioCardProps) {
-  const closeCaseStudyButtonRef = useRef<HTMLButtonElement | null>(null)
+  const closeCaseStudyButtonRef = useRef<HTMLButtonElement | null>(null);
 
   return (
     <div
@@ -118,7 +118,7 @@ function PortfolioCard({
         </Dialog>
       </div>
     </div>
-  )
+  );
 }
 
 export function ProjectCards({ projects }: { projects: ProjectContent[] }) {
@@ -127,12 +127,12 @@ export function ProjectCards({ projects }: { projects: ProjectContent[] }) {
       <p className="text-muted-foreground">
         {PROJECT_CARDS_COPY.emptyProjectsLabel}
       </p>
-    )
+    );
   }
 
   return (
     <Swiper
-      effect={'cards'}
+      effect={"cards"}
       modules={[EffectCards]}
       grabCursor={true}
       initialSlide={1}
@@ -141,19 +141,19 @@ export function ProjectCards({ projects }: { projects: ProjectContent[] }) {
         perSlideOffset: 8,
         slideShadows: true,
       }}
-      className="mySwiper"
+      className="mySwiperOld"
     >
       {projects.map((project) => (
         <SwiperSlide key={project.documentId}>
           <PortfolioCard
             id={`portfolio-card-${project.id}`}
             title={project.title}
-            imageUrl={project.featuredImageUrl || ''}
+            imageUrl={project.featuredImageUrl || ""}
             liveLink={project.liveLink}
             description={project.description}
           />
         </SwiperSlide>
       ))}
     </Swiper>
-  )
+  );
 }

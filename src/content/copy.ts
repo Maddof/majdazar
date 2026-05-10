@@ -64,7 +64,7 @@ export const ABOUT_PAGE_COPY = {
 
 export const PROJECT_CARDS_COPY = {
   visitSiteLabel: "Visit site",
-  viewCaseStudyLabel: "View case study",
+  viewCaseStudyLabel: "View project",
   caseStudySuffix: "Case Study",
   richTextEmptyLabel: "No case study content available yet.",
   closeLabel: "Close",

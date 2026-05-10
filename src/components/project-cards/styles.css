@@ -1,4 +1,4 @@
-.swiper-slide {
+.mySwiperOld .swiper-slide {
   display: flex;
   align-items: end;
   justify-content: center;
@@ -8,7 +8,7 @@
   color: #fff;
 }
 
-.mySwiper {
+.mySwiperOld {
   margin-top: 80px;
   width: 22rem;
   height: auto;
@@ -18,7 +18,7 @@
   }
 }
 
-.mySwiper .swiper-slide {
+.mySwiperOld .swiper-slide {
   width: 100%;
   height: 100%;
   border: 1px solid var(--color-primary);

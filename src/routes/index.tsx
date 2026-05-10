@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { HOME_COPY, HOME_DEFAULT_CONTENT } from "~/content/copy";
 import SignatureHero from "~/components/hero/Signature";
-import SignatureHeader from "~/components/header/Signature";
 import Typewriter from "~/components/hero/Typewriter";
 import { ProjectCards } from "~/components/project-cards/ProjectCards";
 import SectionIntro from "~/components/SectionIntro";
@@ -12,6 +11,7 @@ import { AboutSection } from "~/components/about/AboutSection";
 import { HomeLoading } from "~/components/home/HomeLoading";
 import { fetchHomepageContent } from "~/utils/strapi/homepage";
 import { fetchProjects } from "~/utils/strapi/projects";
+import { ProjectsSections } from "~/components/projects/ProjectsSections";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -121,7 +121,7 @@ function Home() {
       <section
         id="hero"
         data-light-header
-        className="relative flex min-h-[90svh] w-full flex-col gap-12 overflow-hidden bg-cover p-0 text-white sm:min-h-svh"
+        className="relative flex min-h-[95svh] w-full flex-col gap-12 overflow-hidden bg-cover p-0 text-white sm:min-h-svh"
         style={{
           backgroundImage: `url('${heroContent.backgroundImageUrl}')`,
         }}
@@ -173,7 +173,7 @@ function Home() {
               />
             </motion.div>
           </div>
-          <div className="z-30 flex flex-col items-start gap-2 pb-10 pl-20">
+          <div className="z-30 flex w-full flex-col items-center gap-2 pb-10 sm:w-fit sm:pl-24">
             <SignatureHero
               shouldStart={isLoaderDone}
               onComplete={() => setIsSignatureDone(true)}
@@ -203,7 +203,12 @@ function Home() {
           <div className="from-primary/30 to-primary/0 pointer-events-none absolute inset-0 z-20 bg-linear-to-tr" />
         </div>
       </section>
-      <section className="overflow-hidden">
+      <ProjectsSections
+        title={projectsContent.title}
+        description={projectsContent.description}
+        projects={projects}
+      />
+      {/* <section className="overflow-hidden">
         <div className="container">
           <SectionIntro
             title={projectsContent.title}
@@ -212,7 +217,7 @@ function Home() {
 
           <ProjectCards projects={projects} />
         </div>
-      </section>
+      </section> */}
       <TechSection toolsContent={toolsContent} />
       <AboutSection aboutContent={aboutContent} />
     </>

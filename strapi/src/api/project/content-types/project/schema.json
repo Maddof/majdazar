@@ -28,6 +28,9 @@
         "images",
         "files"
       ]
+    },
+    "shortDesc": {
+      "type": "string"
     }
   }
 }
