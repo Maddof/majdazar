@@ -1,8 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import SectionIntro from "~/components/SectionIntro";
 import { StrapiRichText } from "~/components/rich-text/StrapiRichText";
-import { Button } from "~/components/ui/button";
 import { ABOUT_PAGE_COPY, ABOUT_PAGE_DEFAULT_CONTENT } from "~/content/copy";
 import { fetchAboutContent } from "~/utils/strapi/about";
 import type { AboutContent } from "~/utils/strapi/about";
@@ -44,13 +42,16 @@ function AboutPage() {
   return (
     <section className="">
       <div className="container">
-        <div className="grid gap-10 sm:grid-cols-2 sm:items-start">
-          <div>
-            <SectionIntro
-              title={aboutPageContent.title}
-              subtitle={aboutPageContent.subtitle}
-              showBackgroundAccent={false}
-            />
+        <div className="grid w-full grid-cols-1 gap-10 sm:grid-cols-3 sm:items-start">
+          <div className="col-span-3">
+            <h2 className="text-primary relative z-30 text-[450%] leading-none font-black uppercase sm:text-[800%] md:text-[900%]">
+              {aboutPageContent.title}
+            </h2>
+          </div>
+          <div className="col-span-3 sm:col-span-2">
+            {aboutPageContent.subtitle && (
+              <h3 className="mb-4">{aboutPageContent.subtitle}</h3>
+            )}
 
             <div className="mt-6 flex flex-col gap-6">
               <StrapiRichText
@@ -72,12 +73,11 @@ function AboutPage() {
               </Button> */}
             </div>
           </div>
-          <div className="sticky top-20 self-start">
+          <div className="sticky top-20 z-0 col-span-3 self-start sm:col-span-1">
             <div className="relative overflow-hidden border border-black">
               <img
                 src={aboutPageContent.featuredImageUrl}
                 alt={aboutPageContent.featuredImageAlt}
-                className={`h-full w-full object-cover transition-opacity duration-300`}
                 loading="eager"
               />
 

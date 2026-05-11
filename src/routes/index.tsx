@@ -9,8 +9,6 @@ import { useEffect, useRef, useState } from "react";
 import { HOME_COPY, HOME_DEFAULT_CONTENT } from "~/content/copy";
 import SignatureHero from "~/components/hero/Signature";
 import Typewriter from "~/components/hero/Typewriter";
-import { ProjectCards } from "~/components/project-cards/ProjectCards";
-import SectionIntro from "~/components/SectionIntro";
 import TechSection from "~/components/toolsofthetrade/ToolsOfTheTrade";
 import { AboutSection } from "~/components/about/AboutSection";
 import { HomeLoading } from "~/components/home/HomeLoading";
@@ -225,16 +223,6 @@ function Home() {
         description={projectsContent.description}
         projects={projects}
       />
-      {/* <section className="overflow-hidden">
-        <div className="container">
-          <SectionIntro
-            title={projectsContent.title}
-            description={projectsContent.description}
-          />
-
-          <ProjectCards projects={projects} />
-        </div>
-      </section> */}
       <TechSection toolsContent={toolsContent} />
       <AboutSection aboutContent={aboutContent} />
     </>

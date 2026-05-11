@@ -8,7 +8,6 @@ import {
   type ToolCategory,
 } from "~/content/copy";
 import Accordion from "../accordion/Accordion";
-import SectionIntro from "../SectionIntro";
 import { ToolsContent } from "~/utils/strapi/homepage";
 
 function ToolCard({
@@ -130,7 +129,6 @@ export default function TechSection({
             </motion.h2>
             <div
               aria-hidden="true"
-              // className="bg-secondary/80 absolute top-1/2 left-[0.5ch] -z-10 h-48 w-1/2 -translate-x-1/2 -translate-y-1/2"
               className="from-secondary to-background absolute top-0 left-[calc(50%-50vw)] -z-10 h-48 w-[calc(50vw)] bg-linear-to-r"
             />
             {toolsContent.description && (
@@ -187,10 +185,6 @@ export default function TechSection({
         id="honorable-mentions"
         className="relative isolate overflow-hidden"
       >
-        {/* <div
-          aria-hidden="true"
-          className="bg-secondary absolute inset-x-0 top-0 -z-10 h-1200 w-full [clip-path:polygon(0_35%,100%_0,100%_100%,0_100%)]"
-        /> */}
         <div className="container">
           <h2 className="text-primary relative mb-6 text-[550%] leading-none font-black uppercase sm:text-[800%] md:text-[900%]">
             {" "}
@@ -208,16 +202,6 @@ export default function TechSection({
             studies and personal projects. Not an exhaustive list, but a
             snapshot of the wider ecosystem I’m familiar with.
           </p>
-
-          {/* <SectionIntro
-            title={
-              toolsContent.titleHonorable || TOOLS_COPY.honorableMentionsTitle
-            }
-            description={
-              toolsContent.descriptionHonorable ||
-              TOOLS_COPY.honorableMentionsDescription
-            }
-          /> */}
           <ul className="my-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
             {resolvedToolCategories
               .filter((c) => c.honorableMention)
