@@ -44,10 +44,10 @@ function ToolCard({
         {tool.name}
       </p>
 
-      {tool.image && (
+      {tool.imageUrl && (
         <img
-          src={tool.image}
-          alt={tool.name}
+          src={tool.imageUrl}
+          alt={tool.imageAlt}
           loading="lazy"
           className={`pointer-events-none absolute top-1/2 left-1/2 h-auto max-w-3/5 -translate-x-1/2 -translate-y-1/2 object-contain transition-opacity duration-500 ${
             isActive
@@ -94,7 +94,8 @@ export default function TechSection({
       honorableMention: category.honorableMention,
       tools: category.toolItem.map((tool) => ({
         name: tool.title,
-        image: tool.imageUrl || "",
+        imageAlt: tool.imageAlt || tool.title,
+        imageUrl: tool.imageUrl || "",
         description: tool.description || "",
       })),
     }));
@@ -181,7 +182,7 @@ export default function TechSection({
             ))}
         </div>
       </section>
-      <section
+      {/* <section
         id="honorable-mentions"
         className="relative isolate overflow-hidden"
       >
@@ -193,8 +194,7 @@ export default function TechSection({
 
           <div
             aria-hidden="true"
-            // className="bg-secondary/80 absolute top-1/2 left-[0.5ch] -z-10 h-48 w-1/2 -translate-x-1/2 -translate-y-1/2"
-            className="bg-secondary absolute top-0 left-[calc(50%-50vw)] -z-10 h-48 w-full"
+            className="bg-secondary absolute top-0 left-[calc(50%-50vw)] -z-10 h-48 w-screen"
           />
 
           <p className="isolate max-w-2xl">
@@ -213,7 +213,7 @@ export default function TechSection({
               ))}
           </ul>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

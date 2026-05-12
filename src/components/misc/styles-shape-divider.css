@@ -1,0 +1,21 @@
+.custom-shape-divider-top-misc {
+  position: absolute;
+  top: 0;
+  left: 0rem;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: -1;
+}
+
+.custom-shape-divider-top-misc svg {
+  position: relative;
+  display: block;
+  width: calc(224% + 1.3px);
+  height: 900px;
+  transform: translateX(12%);
+}
+
+.custom-shape-divider-top-misc .shape-fill {
+  fill: var(--color-secondary);
+}

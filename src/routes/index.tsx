@@ -15,6 +15,8 @@ import { HomeLoading } from "~/components/home/HomeLoading";
 import { fetchHomepageContent } from "~/utils/strapi/homepage";
 import { fetchProjects } from "~/utils/strapi/projects";
 import { ProjectsSections } from "~/components/projects/ProjectsSections";
+import { SpinWheel } from "~/components/misc/spinwheel/SpinWheel";
+import { MiscTechSection } from "~/components/misc/MiscTech";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -224,6 +226,7 @@ function Home() {
         projects={projects}
       />
       <TechSection toolsContent={toolsContent} />
+      <MiscTechSection toolsContent={toolsContent} />
       <AboutSection aboutContent={aboutContent} />
     </>
   );
