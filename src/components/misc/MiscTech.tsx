@@ -20,8 +20,6 @@ export function MiscTechSection({
     [honorableMentions, winnerTitle],
   );
 
-  console.log("Honorable mentions:", honorableMentions);
-
   return (
     <section id="misc-tech" className="relative overflow-hidden">
       {/* Shape divider at the top of the section */}

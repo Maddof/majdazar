@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { PlusIcon } from "lucide-react";
 import {
   TOOLS_COPY,
@@ -182,38 +182,6 @@ export default function TechSection({
             ))}
         </div>
       </section>
-      {/* <section
-        id="honorable-mentions"
-        className="relative isolate overflow-hidden"
-      >
-        <div className="container">
-          <h2 className="text-primary relative mb-6 text-[550%] leading-none font-black uppercase sm:text-[800%] md:text-[900%]">
-            {" "}
-            MISC.
-          </h2>
-
-          <div
-            aria-hidden="true"
-            className="bg-secondary absolute top-0 left-[calc(50%-50vw)] -z-10 h-48 w-screen"
-          />
-
-          <p className="isolate max-w-2xl">
-            Services and tech I’ve worked with across professional roles,
-            studies and personal projects. Not an exhaustive list, but a
-            snapshot of the wider ecosystem I’m familiar with.
-          </p>
-          <ul className="my-8 grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3">
-            {resolvedToolCategories
-              .filter((c) => c.honorableMention)
-              .flatMap((c) => c.tools)
-              .map((tool) => (
-                <li key={tool.name} className="rounded border px-3 py-2">
-                  {tool.name}
-                </li>
-              ))}
-          </ul>
-        </div>
-      </section> */}
     </>
   );
 }
