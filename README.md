@@ -39,15 +39,6 @@ npm run build
 
 This repository now includes a Strapi app in `strapi/` configured for PostgreSQL.
 
-Database settings are in `strapi/.env`:
-
-- `DATABASE_CLIENT=postgres`
-- `DATABASE_HOST=localhost`
-- `DATABASE_PORT=5432`
-- `DATABASE_NAME=portfolio`
-- `DATABASE_USERNAME=majd`
-- `DATABASE_SSL=false`
-
 Run Strapi from the repository root:
 
 ```sh
