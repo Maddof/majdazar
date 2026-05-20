@@ -71,7 +71,9 @@ export function SpinWheel({
       "touches" in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
     const clientY =
       "touches" in e ? e.touches[0].clientY : (e as MouseEvent).clientY;
-    return Math.atan2(clientY - cy, clientX - cx);
+
+    const angle = Math.atan2(clientY - cy, clientX - cx);
+    return angle;
   };
 
   const onDragStart = (e: React.MouseEvent | React.TouchEvent) => {
@@ -170,6 +172,7 @@ export function SpinWheel({
 
     const cx = SIZE / 2;
     const cy = SIZE / 2;
+    // Radius for segments, leaving some padding from the edge for aesthetics and text
     const r = cx - 8;
 
     ctx.clearRect(0, 0, SIZE, SIZE);
@@ -221,6 +224,7 @@ export function SpinWheel({
     setSpinning(true);
     setResult(null);
 
+    // Generate a random total rotation between 5 and 10 full spins, plus a random fraction to land on a non-segment boundary
     const totalRotation =
       (5 + Math.floor(Math.random() * 5)) * 2 * Math.PI +
       Math.random() * 2 * Math.PI;

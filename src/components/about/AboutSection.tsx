@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { motion, useInView } from "framer-motion";
-import { Button, buttonVariants } from "~/components/ui/button";
+import { Button } from "~/components/ui/button";
+import { cn } from "~/lib/utils";
 
 type AboutContent = {
   title: string;
@@ -42,8 +43,29 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
 
   const [disabledButton, setDisabledButton] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+  const [isBottomRightAligned, setIsBottomRightAligned] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isExiting) {
+      setIsBottomRightAligned(false);
+      return;
+    }
+
+    const alignTimeoutId = window.setTimeout(() => {
+      setIsBottomRightAligned(true);
+    }, 3500); // Delay to align with the video animation
+
+    const resetTimeoutId = window.setTimeout(() => {
+      setIsBottomRightAligned(false);
+    }, 4500);
+
+    return () => {
+      window.clearTimeout(alignTimeoutId);
+      window.clearTimeout(resetTimeoutId);
+    };
+  }, [isExiting]);
 
   const handleAnimation = () => {
     setDisabledButton(true);
@@ -54,7 +76,6 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
   const handleVideoEnd = () => {
     setDisabledButton(false);
     navigate({ to: "/about" });
-    console.log("Video finished, navigate to about");
   };
 
   return (
@@ -68,7 +89,10 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
       {/* Video Background */}
       <video
         ref={videoRef}
-        className="absolute inset-0 h-full w-full object-cover"
+        className={cn(
+          "absolute inset-0 h-full w-full object-cover transition-all duration-1000",
+          isBottomRightAligned && "scale-125 object-right sm:scale-100",
+        )}
         // autoPlay
         // loop
         muted
