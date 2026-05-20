@@ -90,8 +90,9 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
       <video
         ref={videoRef}
         className={cn(
-          "absolute inset-0 h-full w-full object-cover transition-all duration-1000",
-          isBottomRightAligned && "scale-125 object-right sm:scale-100",
+          "absolute inset-0 h-full w-full object-cover transition-all duration-1000 sm:ease-in-out",
+          isBottomRightAligned &&
+            "scale-125 object-right sm:origin-right sm:scale-175",
         )}
         // autoPlay
         // loop
@@ -131,8 +132,18 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
         </motion.div>
       </div>
       {/* Overlay absolute */}
-      <div className="from-primary/50 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-tr" />
-      <div className="from-primary/10 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-b" />
+      <div
+        className={cn(
+          "from-primary/50 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-tr transition-opacity duration-1000",
+          isExiting ? "opacity-0" : "opacity-80", // Fade out overlay when exiting
+        )}
+      />
+      <div
+        className={cn(
+          "from-primary/10 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-b transition-opacity duration-1000",
+          isExiting ? "opacity-0" : "opacity-80", // Fade out overlay when exiting
+        )}
+      />
 
       {/* <div className="from-primary/95 to-primary/0 pointer-events-none absolute inset-0 z-10 bg-linear-to-tr" /> */}
     </section>
