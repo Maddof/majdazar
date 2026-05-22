@@ -6,7 +6,10 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { HOME_COPY, HOME_DEFAULT_CONTENT } from "~/content/copy";
+import {
+  HOME_COPY,
+  HOME_DEFAULT_CONTENT,
+} from "~/content/copy";
 import SignatureHero from "~/components/hero/Signature";
 import Typewriter from "~/components/hero/Typewriter";
 import TechSection from "~/components/toolsofthetrade/ToolsOfTheTrade";
@@ -15,7 +18,6 @@ import { HomeLoading } from "~/components/home/HomeLoading";
 import { fetchHomepageContent } from "~/utils/strapi/homepage";
 import { fetchProjects } from "~/utils/strapi/projects";
 import { ProjectsSections } from "~/components/projects/ProjectsSections";
-import { SpinWheel } from "~/components/misc/spinwheel/SpinWheel";
 import { MiscTechSection } from "~/components/misc/MiscTech";
 
 export const Route = createFileRoute("/")({
@@ -32,12 +34,15 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { homepage, projects } = Route.useLoaderData();
-  const [isSignatureDone, setIsSignatureDone] = useState(false);
-  const [hasStartedScroll, setHasStartedScroll] = useState(false);
+  const [isSignatureDone, setIsSignatureDone] =
+    useState(false);
+  const [hasStartedScroll, setHasStartedScroll] =
+    useState(false);
   const [isBlinkActive, setIsBlinkActive] = useState(false);
   const blinkTimeoutRef = useRef<number | null>(null);
 
-  const [showIntroLoader, setShowIntroLoader] = useState(true);
+  const [showIntroLoader, setShowIntroLoader] =
+    useState(true);
   const [isLoaderDone, setIsLoaderDone] = useState(false);
 
   const heroSectionRef = useRef<HTMLElement | null>(null);
@@ -47,13 +52,17 @@ function Home() {
     offset: ["start start", "end start"],
   });
 
-  const fullStackY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const fullStackY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", "80%"],
+  );
 
   // Ensure the intro loader is shown for at least 2 seconds, even if the page loads faster than that, to allow the animation to be appreciated and avoid a flash of content if loading is very fast.
   useEffect(() => {
     const timeout = window.setTimeout(() => {
       setShowIntroLoader(false);
-    }, 2000);
+    }, 2300);
 
     return () => window.clearTimeout(timeout);
   }, []);
@@ -98,7 +107,9 @@ function Home() {
       setHasStartedScroll(window.scrollY > 110);
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -156,7 +167,9 @@ function Home() {
               className="relative h-full"
               id="portrait-container"
               initial={{ x: -10 }}
-              animate={isLoaderDone ? { x: -10 } : { x: -120 }}
+              animate={
+                isLoaderDone ? { x: -10 } : { x: -120 }
+              }
               transition={{
                 // delay: 0.5,
                 duration: 0.6,
@@ -166,14 +179,19 @@ function Home() {
               {/* Base image */}
               <img
                 src={heroContent.portraitImageUrl}
-                alt={heroContent.portraitImageAlt || heroContent.typedName}
+                alt={
+                  heroContent.portraitImageAlt ||
+                  heroContent.typedName
+                }
                 className="block h-full w-auto object-cover opacity-95"
               />
               {/* Hover/touch hotspot: only this area triggers the blink overlay */}
               <button
                 type="button"
                 aria-label={HOME_COPY.triggerBlinkLabel}
-                onTouchStart={() => setIsBlinkActive((prev) => !prev)}
+                onTouchStart={() =>
+                  setIsBlinkActive((prev) => !prev)
+                }
                 className="peer absolute top-[8%] right-[28%] z-20 h-[26%] w-[28%] bg-transparent"
               />
               {/* Blink overlay image */}
@@ -184,7 +202,9 @@ function Home() {
                   `${heroContent.typedName} Blinking`
                 }
                 className={`pointer-events-none absolute inset-0 h-full w-auto object-cover transition-opacity duration-250 [clip-path:inset(0_0_66%_0)] peer-hover:opacity-100 ${
-                  isBlinkActive ? "opacity-100" : "opacity-0"
+                  isBlinkActive
+                    ? "opacity-100"
+                    : "opacity-0"
                 }`}
               />
             </motion.div>
@@ -203,12 +223,15 @@ function Home() {
                 if (isSignatureDone) {
                   setIsBlinkActive(true);
                   if (blinkTimeoutRef.current !== null) {
-                    window.clearTimeout(blinkTimeoutRef.current);
+                    window.clearTimeout(
+                      blinkTimeoutRef.current,
+                    );
                   }
-                  blinkTimeoutRef.current = window.setTimeout(() => {
-                    setIsBlinkActive(false);
-                    blinkTimeoutRef.current = null;
-                  }, 1500);
+                  blinkTimeoutRef.current =
+                    window.setTimeout(() => {
+                      setIsBlinkActive(false);
+                      blinkTimeoutRef.current = null;
+                    }, 1500);
                 }
               }}
             />
